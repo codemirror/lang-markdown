@@ -1,6 +1,6 @@
-# @codemirror/lang-markdown
+# @codemirror/lang-markdown [![NPM version](https://img.shields.io/npm/v/@codemirror/lang-markdown.svg)](https://www.npmjs.org/package/@codemirror/lang-markdown)
 
-[ [![NPM version](https://img.shields.io/npm/v/@codemirror/next.svg)](https://www.npmjs.org/package/@codemirror/lang-markdown) | [**WEBSITE**](https://codemirror.net/6/) | [**ISSUES**](https://github.com/codemirror/codemirror.next/issues) | [**FORUM**](https://discuss.codemirror.net/c/next/) | [**CHANGELOG**](https://github.com/codemirror/lang-markdown/blob/main/CHANGELOG.md) ]
+[ [**WEBSITE**](https://codemirror.net/6/) | [**ISSUES**](https://github.com/codemirror/codemirror.next/issues) | [**FORUM**](https://discuss.codemirror.net/c/next/) | [**CHANGELOG**](https://github.com/codemirror/lang-markdown/blob/main/CHANGELOG.md) ]
 
 This package implements Markdown language support for the
 [CodeMirror](https://codemirror.net/6/) code editor.
