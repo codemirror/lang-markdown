@@ -10,7 +10,10 @@
     "newLine": "lf",
     "declaration": true,
     "declarationMap": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@codemirror/lang-markdown": ["./src/index.ts"]
+    }
   },
   "include": ["src/*.ts", "test/*.ts"]
 }
