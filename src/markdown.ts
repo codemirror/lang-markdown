@@ -1,8 +1,8 @@
 import {Language, defineLanguageFacet, languageDataProp, foldNodeProp, indentNodeProp,
-        LanguageDescription, EditorParseContext} from "@codemirror/next/language"
-import {styleTags, tags as t} from "@codemirror/next/highlight"
+        LanguageDescription, EditorParseContext} from "@codemirror/language"
+import {styleTags, tags as t} from "@codemirror/highlight"
 import {parser as baseParser} from "lezer-markdown"
-import {htmlLanguage} from "@codemirror/next/lang-html"
+import {htmlLanguage} from "@codemirror/lang-html"
 
 const data = defineLanguageFacet({block: {open: "<!--", close: "-->"}})
 

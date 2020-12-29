@@ -1,6 +1,6 @@
-import {Prec} from "@codemirror/next/state"
-import {KeyBinding, keymap} from "@codemirror/next/view"
-import {Language, LanguageSupport, LanguageDescription} from "@codemirror/next/language"
+import {Prec} from "@codemirror/state"
+import {KeyBinding, keymap} from "@codemirror/view"
+import {Language, LanguageSupport, LanguageDescription} from "@codemirror/language"
 import {markdownLanguage, markdownWithCodeLanguages} from "./markdown"
 import {insertNewlineContinueMarkup, deleteMarkupBackward} from "./commands"
 export {markdownLanguage, insertNewlineContinueMarkup, deleteMarkupBackward}

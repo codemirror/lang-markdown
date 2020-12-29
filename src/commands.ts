@@ -1,5 +1,5 @@
-import {StateCommand, Text, EditorSelection, ChangeSpec} from "@codemirror/next/state"
-import {syntaxTree} from "@codemirror/next/language"
+import {StateCommand, Text, EditorSelection, ChangeSpec} from "@codemirror/state"
+import {syntaxTree} from "@codemirror/language"
 import {SyntaxNode} from "lezer-tree"
 import {markdownLanguage} from "./markdown"
 

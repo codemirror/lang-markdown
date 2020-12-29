@@ -1,5 +1,5 @@
-import {EditorState, EditorSelection, StateCommand} from "@codemirror/next/state"
-import {markdownLanguage, deleteMarkupBackward, insertNewlineContinueMarkup} from "@codemirror/next/lang-markdown"
+import {EditorState, EditorSelection, StateCommand} from "@codemirror/state"
+import {markdownLanguage, deleteMarkupBackward, insertNewlineContinueMarkup} from "@codemirror/lang-markdown"
 import ist from "ist"
 
 function mkState(doc: string) {
