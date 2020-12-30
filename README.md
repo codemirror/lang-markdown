@@ -1,3 +1,5 @@
+<!-- NOTE: README.md is generated from src/README.md -->
+
 # @codemirror/lang-markdown [![NPM version](https://img.shields.io/npm/v/@codemirror/lang-markdown.svg)](https://www.npmjs.org/package/@codemirror/lang-markdown)
 
 [ [**WEBSITE**](https://codemirror.net/6/) | [**ISSUES**](https://github.com/codemirror/codemirror.next/issues) | [**FORUM**](https://discuss.codemirror.net/c/next/) | [**CHANGELOG**](https://github.com/codemirror/lang-markdown/blob/main/CHANGELOG.md) ]
@@ -16,3 +18,69 @@ We aim to be an inclusive, welcoming community. To make that explicit,
 we have a [code of
 conduct](http://contributor-covenant.org/version/1/1/0/) that applies
 to communication around the project.
+
+## API Reference
+<dl>
+<dt id="user-content-markdown">
+  <code><strong><a href="#user-content-markdown">markdown</a></strong>(<a id="user-content-markdown^config" href="#user-content-markdown^config">config</a>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> = {}) → <a href="https://codemirror.net/6/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
+
+<dd><p>Markdown language support.</p>
+<dl><dt id="user-content-markdown^config">
+  <code><strong><a href="#user-content-markdown^config">config</a></strong></code></dt>
+
+<dd><dl><dt id="user-content-markdown^config.defaultcodelanguage">
+  <code><strong><a href="#user-content-markdown^config.defaultcodelanguage">defaultCodeLanguage</a></strong>&#8288;?: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
+
+<dd><p>When given, this language will be used by default to parse code
+blocks.</p>
+</dd><dt id="user-content-markdown^config.codelanguages">
+  <code><strong><a href="#user-content-markdown^config.codelanguages">codeLanguages</a></strong>&#8288;?: readonly <a href="https://codemirror.net/6/docs/ref#language.LanguageDescription">LanguageDescription</a>[]</code></dt>
+
+<dd><p>A collection of language descriptions to search through for a
+matching language (with
+<a href="https://codemirror.net/6/docs/ref/#language.LanguageDescription%5EmatchLanguageName"><code>LanguageDescription.matchLanguageName</code></a>)
+when a fenced code block has an info string.</p>
+</dd><dt id="user-content-markdown^config.addkeymap">
+  <code><strong><a href="#user-content-markdown^config.addkeymap">addKeymap</a></strong>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code></dt>
+
+<dd><p>Set this to false to disable installation of the Markdown
+<a href="#user-content-markdownkeymap">keymap</a>.</p>
+</dd></dl></dd></dl></dd>
+<dt id="user-content-markdownlanguage">
+  <code><strong><a href="#user-content-markdownlanguage">markdownLanguage</a></strong>: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
+
+<dd><p>Language support for Markdown/CommonMark.</p>
+</dd>
+<dt id="user-content-insertnewlinecontinuemarkup">
+  <code><strong><a href="#user-content-insertnewlinecontinuemarkup">insertNewlineContinueMarkup</a></strong>: <a href="https://codemirror.net/6/docs/ref#state.StateCommand">StateCommand</a></code></dt>
+
+<dd><p>This command, when invoked in Markdown context with cursor
+selection(s), will create a new line with the markup for
+blockquotes and lists that were active on the old line. If the
+cursor was directly after the end of the markup for the old line,
+trailing whitespace and list markers are removed from that line.</p>
+<p>The command does nothing in non-Markdown context, so it should
+not be used as the only binding for Enter (even in a Markdown
+document, HTML and code regions might use a different language).</p>
+</dd>
+<dt id="user-content-deletemarkupbackward">
+  <code><strong><a href="#user-content-deletemarkupbackward">deleteMarkupBackward</a></strong>: <a href="https://codemirror.net/6/docs/ref#state.StateCommand">StateCommand</a></code></dt>
+
+<dd><p>This command will, when invoked in a Markdown context with the
+cursor directly after list or blockquote markup, delete one level
+of markup. When the markup is for a list, it will be replaced by
+spaces on the first invocation (a further invocation will delete
+the spaces), to make it easy to continue a list.</p>
+<p>When not after Markdown block markup, this command will return
+false, so it is intended to be bound alongside other deletion
+commands, with a higher precedence than the more generic commands.</p>
+</dd>
+<dt id="user-content-markdownkeymap">
+  <code><strong><a href="#user-content-markdownkeymap">markdownKeymap</a></strong>: readonly <a href="https://codemirror.net/6/docs/ref#view.KeyBinding">KeyBinding</a>[]</code></dt>
+
+<dd><p>A small keymap with Markdown-specific bindings. Binds Enter to
+<a href="#user-content-insertnewlinecontinuemarkup"><code>insertNewlineContinueMarkup</code></a>
+and Backspace to
+<a href="#user-content-deletemarkupbackward"><code>deleteMarkupBackward</code></a>.</p>
+</dd>
+</dl>
