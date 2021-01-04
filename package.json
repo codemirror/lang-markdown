@@ -4,7 +4,7 @@
   "description": "Markdown language support for the CodeMirror code editor",
   "scripts": {
     "test": "mocha test/test-*.js",
-    "prepare": "tsc && rollup -c"
+    "prepare": "tsc -p tsconfig.local.json && rollup -c"
   },
   "keywords": [
     "editor",
