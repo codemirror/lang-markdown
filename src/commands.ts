@@ -88,6 +88,7 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
         }
       }
       let insert = markup.map(m => m.string).join("")
+      if (range.from - line.from < insert.length) insert = ""
       changes.push({from, to: range.from, insert: Text.of(["", insert])})
       return {range: EditorSelection.cursor(from + 1 + insert.length), changes}
     }

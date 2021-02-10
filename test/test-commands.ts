@@ -99,6 +99,9 @@ describe("insertNewlineContinueMarkup", () => {
 
   it("stops renumbering on discontinuities", () =>
     test("1. one|\n2. two\n3. three\n1. four", "1. one\n2. |\n3. two\n4. three\n1. four"))
+
+  it("doesn't add markup when the cursor is before the markup depth", () =>
+    test("- a\n|bc", "- a\n\n|bc"))
 })
 
 describe("deleteMarkupBackward", () => {
