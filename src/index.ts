@@ -1,9 +1,10 @@
 import {Prec} from "@codemirror/state"
 import {KeyBinding, keymap} from "@codemirror/view"
 import {Language, LanguageSupport, LanguageDescription} from "@codemirror/language"
-import {markdownLanguage, markdownWithCodeLanguages} from "./markdown"
+import {commonmarkLanguage, markdownLanguage, mkLang, addCodeLanguages} from "./markdown"
+import {MarkdownExtension, MarkdownParser} from "lezer-markdown"
 import {insertNewlineContinueMarkup, deleteMarkupBackward} from "./commands"
-export {markdownLanguage, insertNewlineContinueMarkup, deleteMarkupBackward}
+export {commonmarkLanguage, markdownLanguage, insertNewlineContinueMarkup, deleteMarkupBackward}
 
 /// A small keymap with Markdown-specific bindings. Binds Enter to
 /// [`insertNewlineContinueMarkup`](#lang-markdown.insertNewlineContinueMarkup)
@@ -26,10 +27,18 @@ export function markdown(config: {
   codeLanguages?: readonly LanguageDescription[],
   /// Set this to false to disable installation of the Markdown
   /// [keymap](#lang-markdown.markdownKeymap).
-  addKeymap?: boolean
+  addKeymap?: boolean,
+  /// Markdown parser
+  /// [extensions](https://github.com/lezer-parser/markdown#user-content-markdownextension)
+  /// to add to the parser.
+  extensions?: MarkdownExtension,
+  /// The base language to use. Defaults to
+  /// [`commonmarkLanguage`](#lang-markdown.commonmarkLanguage).
+  base?: Language
 } = {}) {
-  let {codeLanguages, defaultCodeLanguage, addKeymap = true} = config
-  let language = codeLanguages || defaultCodeLanguage ? markdownWithCodeLanguages(codeLanguages || [], defaultCodeLanguage)
-    : markdownLanguage
-  return new LanguageSupport(language, addKeymap ? Prec.extend(keymap.of(markdownKeymap)) : [])
+  let {codeLanguages, defaultCodeLanguage, addKeymap = true, base: {parser} = commonmarkLanguage} = config
+  let extensions = config.extensions ? [config.extensions] : []
+  if (!(parser instanceof MarkdownParser)) throw new RangeError("Base parser provided to `markdown` should be a Markdown parser")
+  if (codeLanguages || defaultCodeLanguage) extensions.push(addCodeLanguages(codeLanguages || [], defaultCodeLanguage))
+  return new LanguageSupport(mkLang(parser.configure(extensions)), addKeymap ? Prec.extend(keymap.of(markdownKeymap)) : [])
 }

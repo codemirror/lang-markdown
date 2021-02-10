@@ -1,12 +1,12 @@
 import {Language, defineLanguageFacet, languageDataProp, foldNodeProp, indentNodeProp,
         LanguageDescription, EditorParseContext} from "@codemirror/language"
 import {styleTags, tags as t} from "@codemirror/highlight"
-import {parser as baseParser} from "lezer-markdown"
+import {parser as baseParser, MarkdownParser, MarkdownExtension, GFM, Subscript, Superscript, Emoji} from "lezer-markdown"
 import {htmlLanguage} from "@codemirror/lang-html"
 
 const data = defineLanguageFacet({block: {open: "<!--", close: "-->"}})
 
-const parser = baseParser.configure({
+const commonmark = baseParser.configure({
   props: [
     styleTags({
       "Blockquote/...": t.quote,
@@ -40,15 +40,37 @@ const parser = baseParser.configure({
   htmlParser: htmlLanguage.parser.configure({dialect: "noMatch"}),
 })
 
-/// Language support for Markdown/CommonMark.
-export const markdownLanguage = new Language(data, parser)
+/// Language support for strict CommonMark.
+export const commonmarkLanguage = mkLang(commonmark)
+
+const extended = commonmark.configure([GFM, Subscript, Superscript, Emoji, {
+  props: [
+    styleTags({
+      "TableDelimiter SubscriptMark SuperscriptMark StrikethroughMark": t.processingInstruction,
+      "TableHeader/...": t.heading,
+      "Strikethrough/...": t.deleted,
+      "TaskMarker": t.atom,
+      "Emoji": t.character,
+      "Subscript Superscript": t.special(t.content)
+    })
+  ]
+}])
+
+/// Language support for [GFM](https://github.github.com/gfm/) plus
+/// subscript, superscript, and emoji syntax.
+export const markdownLanguage = mkLang(extended)
+
+export function mkLang(parser: MarkdownParser) { return new Language(data, parser) }
 
 // Create an instance of the Markdown language that will, for code
 // blocks, try to find a language that matches the block's info
 // string in `languages` or, if none if found, use `defaultLanguage`
 // to parse the block.
-export function markdownWithCodeLanguages(languages: readonly LanguageDescription[], defaultLanguage?: Language) {
-  return new Language(data, parser.configure({
+export function addCodeLanguages(
+  languages: readonly LanguageDescription[],
+  defaultLanguage?: Language,
+): MarkdownExtension {
+  return {
     codeParser(info: string) {
       let found = info && LanguageDescription.matchLanguageName(languages, info, true)
       if (!found) return defaultLanguage ? defaultLanguage.parser : null
@@ -56,5 +78,5 @@ export function markdownWithCodeLanguages(languages: readonly LanguageDescriptio
       found.load()
       return EditorParseContext.skippingParser
     }
-  }))
+  }
 }
