@@ -11,7 +11,12 @@ const commonmark = baseParser.configure({
     styleTags({
       "Blockquote/...": t.quote,
       HorizontalRule: t.contentSeparator,
-      "ATXHeading/... SetextHeading/...": t.heading,
+      "ATXHeading1/... SetextHeading1/...": t.heading1,
+      "ATXHeading2/... SetextHeading2/...": t.heading2,
+      "ATXHeading3/...": t.heading3,
+      "ATXHeading4/...": t.heading4,
+      "ATXHeading5/...": t.heading5,
+      "ATXHeading6/...": t.heading6,
       "Comment CommentBlock": t.comment,
       Escape: t.escape,
       Entity: t.character,
