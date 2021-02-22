@@ -1,3 +1,9 @@
+## 0.17.3 (2021-02-22)
+
+### New features
+
+Include heading depth in style tags.
+
 ## 0.17.2 (2021-02-10)
 
 ### Bug fixes

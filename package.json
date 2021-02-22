@@ -1,6 +1,6 @@
 {
   "name": "@codemirror/lang-markdown",
-  "version": "0.17.2",
+  "version": "0.17.3",
   "description": "Markdown language support for the CodeMirror code editor",
   "scripts": {
     "test": "mocha test/test-*.js",
