@@ -29,7 +29,8 @@ const commonmark = baseParser.configure({
       URL: t.url,
       "HeaderMark HardBreak QuoteMark ListMark LinkMark EmphasisMark CodeMark": t.processingInstruction,
       "CodeInfo LinkLabel": t.labelName,
-      LinkTitle: t.string
+      LinkTitle: t.string,
+      Paragraph: t.content
     }),
     foldNodeProp.add(type => {
       if (!type.is("Block") || type.is("Document")) return undefined
@@ -54,9 +55,11 @@ const extended = commonmark.configure([GFM, Subscript, Superscript, Emoji, {
       "TableDelimiter SubscriptMark SuperscriptMark StrikethroughMark": t.processingInstruction,
       "TableHeader/...": t.heading,
       "Strikethrough/...": t.deleted,
-      "TaskMarker": t.atom,
-      "Emoji": t.character,
-      "Subscript Superscript": t.special(t.content)
+      TaskMarker: t.atom,
+      Task: t.list,
+      Emoji: t.character,
+      "Subscript Superscript": t.special(t.content),
+      TableCell: t.content
     })
   ]
 }])
