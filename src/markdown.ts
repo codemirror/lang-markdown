@@ -68,7 +68,9 @@ const extended = commonmark.configure([GFM, Subscript, Superscript, Emoji, {
 /// subscript, superscript, and emoji syntax.
 export const markdownLanguage = mkLang(extended)
 
-export function mkLang(parser: MarkdownParser) { return new Language(data, parser) }
+export function mkLang(parser: MarkdownParser) {
+  return new Language(data, parser, parser.nodeSet.types.find(t => t.name == "Document")!)
+}
 
 // Create an instance of the Markdown language that will, for code
 // blocks, try to find a language that matches the block's info
