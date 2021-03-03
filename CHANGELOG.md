@@ -1,5 +1,9 @@
 ## 0.18.0 (2021-03-03)
 
+### Breaking changes
+
+Update dependencies to 0.18.
+
 ## 0.17.3 (2021-02-22)
 
 ### New features
