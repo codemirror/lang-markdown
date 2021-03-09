@@ -25,7 +25,7 @@ const commonmark = baseParser.configure({
       "Link/... Image/...": t.link,
       "OrderedList/... BulletList/...": t.list,
       "BlockQuote/...": t.quote,
-      InlineCode: t.monospace,
+      "InlineCode/...": t.monospace,
       URL: t.url,
       "HeaderMark HardBreak QuoteMark ListMark LinkMark EmphasisMark CodeMark": t.processingInstruction,
       "CodeInfo LinkLabel": t.labelName,
