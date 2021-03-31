@@ -85,8 +85,7 @@ export function addCodeLanguages(
       let found = info && LanguageDescription.matchLanguageName(languages, info, true)
       if (!found) return defaultLanguage ? defaultLanguage.parser : null
       if (found.support) return found.support.language.parser
-      found.load()
-      return EditorParseContext.skippingParser
+      return EditorParseContext.getSkippingParser(found.load())
     }
   }
 }
