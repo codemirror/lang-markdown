@@ -1,3 +1,9 @@
+## 0.18.1 (2021-04-01)
+
+### Bug fixes
+
+Add `monospace` style tag to all children of inline code nodes.
+
 ## 0.18.0 (2021-03-03)
 
 ### Breaking changes
