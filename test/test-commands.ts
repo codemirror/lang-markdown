@@ -102,6 +102,12 @@ describe("insertNewlineContinueMarkup", () => {
 
   it("doesn't add markup when the cursor is before the markup depth", () =>
     test("- a\n|bc", "- a\n\n|bc"))
+
+  it("continues list items", () =>
+    test("- a\n  b|", "- a\n  b\n  |"))
+
+  it("continues dedented list items", () =>
+    test("- hello\nhello|", "- hello\nhello\n|"))
 })
 
 describe("deleteMarkupBackward", () => {

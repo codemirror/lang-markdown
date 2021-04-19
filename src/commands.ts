@@ -79,7 +79,10 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
           if (from < range.from && inner.node.parent!.from == inner.node.from) { // First item
             inner.string = ""
           } else {
-            inner.string = line.text.slice(inner.from, inner.from + inner.string.length)
+            if (inner.node.from >= line.from)
+              inner.string = line.text.slice(inner.from, inner.from + inner.string.length)
+            else
+              inner.string = /^\s*/.exec(line.text)![0].slice(0, inner.string.length)
             if (inner.node.parent!.name == "OrderedList" && from == range.from) {
               inner.string = inner.string.replace(/\d+/, m => (+m + 1) as any)
               renumberList(inner.node, state.doc, changes)
