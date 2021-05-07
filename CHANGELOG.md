@@ -1,3 +1,9 @@
+## 0.18.2 (2021-05-07)
+
+### Bug fixes
+
+Fix a bug where `insertNewlineContinueMarkup` could duplicate bits of content when in dededented continued list items.
+
 ## 0.18.1 (2021-04-01)
 
 ### Bug fixes
