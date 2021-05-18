@@ -79,8 +79,12 @@ describe("insertNewlineContinueMarkup", () => {
   it("can drop trailing space when pressing enter in a blockquote", () =>
     test(">  |", ">\n> |"))
 
-  it("can drop list markup when pressing enter directly after it", () =>
+  it("can move list markup when pressing enter directly after it", () =>
     test(" - one\n - |", " - one\n\n - |"))
+
+  it("can drop list markup after an empty line", () => {
+    test(" - one\n\n - |", " - one\n\n|")
+  })
 
   it("can drop list markup even with text after it", () =>
     test(" - one\n - |two", " - one\n\n - |two"))

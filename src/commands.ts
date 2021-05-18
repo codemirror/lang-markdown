@@ -70,13 +70,18 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
       let from = range.from, changes: ChangeSpec[] = []
       if (markup.length) {
         let inner = markup[markup.length - 1], innerEnd = inner.from + inner.string.length
-        if (range.from - line.from >= innerEnd && !/\S/.test(line.text.slice(innerEnd, range.from - line.from))) {
+        let emptyLine = range.from - line.from >= innerEnd && !/\S/.test(line.text.slice(innerEnd, range.from - line.from))
+        if (emptyLine) {
           let start = /List/.test(inner.node.name) ? inner.from : innerEnd
           while (start > 0 && /\s/.test(line.text[start - 1])) start--
           from = line.from + start
         }
         if (inner.node.name == "ListItem") {
-          if (from < range.from && inner.node.parent!.from == inner.node.from) { // First item
+          // After a blank line
+          if (emptyLine && line.from > 0 && !/[^\s>]/.test(state.doc.lineAt(line.from - 1).text))
+            return {range: EditorSelection.cursor(from), changes: {from, to: range.from}}
+          // First item
+          if (from < range.from && inner.node.parent!.from == inner.node.from) {
             inner.string = ""
           } else {
             if (inner.node.from >= line.from)
