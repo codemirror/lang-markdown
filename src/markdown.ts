@@ -54,7 +54,7 @@ const extended = commonmark.configure([GFM, Subscript, Superscript, Emoji, {
     styleTags({
       "TableDelimiter SubscriptMark SuperscriptMark StrikethroughMark": t.processingInstruction,
       "TableHeader/...": t.heading,
-      "Strikethrough/...": t.deleted,
+      "Strikethrough/...": t.strikethrough,
       TaskMarker: t.atom,
       Task: t.list,
       Emoji: t.character,
