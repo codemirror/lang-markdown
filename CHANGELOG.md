@@ -1,3 +1,9 @@
+## 0.18.3 (2021-05-19)
+
+### Bug fixes
+
+`insertNewlineContinueMarkup` will not continue moving list markers down when they are after an empty line anymore.
+
 ## 0.18.2 (2021-05-07)
 
 ### Bug fixes
