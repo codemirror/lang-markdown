@@ -132,7 +132,8 @@ export const deleteMarkupBackward: StateCommand = ({state, dispatch}) => {
           if (inner.node.name == "ListItem" && inner.node.parent!.from < inner.node.from &&
               /\S/.test(line.text.slice(inner.from, innerEnd)))
             return {range, changes: {from: start, to: start + inner.string.length, insert: inner.string}}
-          return {range: EditorSelection.cursor(start), changes: {from: start, to: range.from}}
+          if (start < range.from)
+            return {range: EditorSelection.cursor(start), changes: {from: start, to: range.from}}
         }
       }
     }
