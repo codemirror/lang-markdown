@@ -1,3 +1,9 @@
+## 0.18.4 (2021-06-16)
+
+### Bug fixes
+
+Fix a case where `deleteMarkupBackward` would return true without actually having an effect.
+
 ## 0.18.3 (2021-05-19)
 
 ### Bug fixes
