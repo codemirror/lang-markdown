@@ -1,6 +1,6 @@
 import {StateCommand, Text, EditorSelection, ChangeSpec} from "@codemirror/state"
 import {syntaxTree} from "@codemirror/language"
-import {SyntaxNode} from "lezer-tree"
+import {SyntaxNode} from "@lezer/common"
 import {markdownLanguage} from "./markdown"
 
 function nodeStart(node: SyntaxNode, doc: Text) {

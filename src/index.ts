@@ -1,8 +1,8 @@
 import {Prec} from "@codemirror/state"
 import {KeyBinding, keymap} from "@codemirror/view"
 import {Language, LanguageSupport, LanguageDescription} from "@codemirror/language"
-import {commonmarkLanguage, markdownLanguage, mkLang, addCodeLanguages} from "./markdown"
-import {MarkdownExtension, MarkdownParser} from "lezer-markdown"
+import {commonmarkLanguage, markdownLanguage, mkLang, getCodeParser, htmlNoMatch} from "./markdown"
+import {MarkdownExtension, MarkdownParser, parseCode} from "@lezer/markdown"
 import {insertNewlineContinueMarkup, deleteMarkupBackward} from "./commands"
 export {commonmarkLanguage, markdownLanguage, insertNewlineContinueMarkup, deleteMarkupBackward}
 
@@ -39,6 +39,8 @@ export function markdown(config: {
   let {codeLanguages, defaultCodeLanguage, addKeymap = true, base: {parser} = commonmarkLanguage} = config
   let extensions = config.extensions ? [config.extensions] : []
   if (!(parser instanceof MarkdownParser)) throw new RangeError("Base parser provided to `markdown` should be a Markdown parser")
-  if (codeLanguages || defaultCodeLanguage) extensions.push(addCodeLanguages(codeLanguages || [], defaultCodeLanguage))
-  return new LanguageSupport(mkLang(parser.configure(extensions)), addKeymap ? Prec.extend(keymap.of(markdownKeymap)) : [])
+  let codeParser = codeLanguages || defaultCodeLanguage ? getCodeParser(codeLanguages || [], defaultCodeLanguage) : undefined
+  extensions.push(parseCode({codeParser, htmlParser: htmlNoMatch}))
+  return new LanguageSupport(mkLang(parser.configure(extensions)),
+                             addKeymap ? Prec.extend(keymap.of(markdownKeymap)) : [])
 }

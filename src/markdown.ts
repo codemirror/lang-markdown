@@ -1,7 +1,7 @@
 import {Language, defineLanguageFacet, languageDataProp, foldNodeProp, indentNodeProp,
-        LanguageDescription, EditorParseContext} from "@codemirror/language"
+        LanguageDescription, ParseContext} from "@codemirror/language"
 import {styleTags, tags as t} from "@codemirror/highlight"
-import {parser as baseParser, MarkdownParser, MarkdownExtension, GFM, Subscript, Superscript, Emoji} from "lezer-markdown"
+import {parser as baseParser, MarkdownParser, GFM, Subscript, Superscript, Emoji} from "@lezer/markdown"
 import {htmlLanguage} from "@codemirror/lang-html"
 
 const data = defineLanguageFacet({block: {open: "<!--", close: "-->"}})
@@ -42,9 +42,12 @@ const commonmark = baseParser.configure({
     languageDataProp.add({
       Document: data
     })
-  ],
-  htmlParser: htmlLanguage.parser.configure({dialect: "noMatch"}),
+  ]
 })
+
+export function mkLang(parser: MarkdownParser) {
+  return new Language(data, parser, parser.nodeSet.types.find(t => t.name == "Document")!)
+}
 
 /// Language support for strict CommonMark.
 export const commonmarkLanguage = mkLang(commonmark)
@@ -68,24 +71,14 @@ const extended = commonmark.configure([GFM, Subscript, Superscript, Emoji, {
 /// subscript, superscript, and emoji syntax.
 export const markdownLanguage = mkLang(extended)
 
-export function mkLang(parser: MarkdownParser) {
-  return new Language(data, parser, parser.nodeSet.types.find(t => t.name == "Document")!)
-}
-
-// Create an instance of the Markdown language that will, for code
-// blocks, try to find a language that matches the block's info
-// string in `languages` or, if none if found, use `defaultLanguage`
-// to parse the block.
-export function addCodeLanguages(
-  languages: readonly LanguageDescription[],
-  defaultLanguage?: Language,
-): MarkdownExtension {
-  return {
-    codeParser(info: string) {
-      let found = info && LanguageDescription.matchLanguageName(languages, info, true)
-      if (!found) return defaultLanguage ? defaultLanguage.parser : null
-      if (found.support) return found.support.language.parser
-      return EditorParseContext.getSkippingParser(found.load())
-    }
+export function getCodeParser(languages: readonly LanguageDescription[],
+                              defaultLanguage?: Language) {
+  return (info: string) => {
+    let found = info && LanguageDescription.matchLanguageName(languages, info, true)
+    if (!found) return defaultLanguage ? defaultLanguage.parser : null
+    if (found.support) return found.support.language.parser
+    return ParseContext.getSkippingParser(found.load())
   }
 }
+
+export const htmlNoMatch = htmlLanguage.parser.configure({dialect: "noMatch"})
