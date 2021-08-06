@@ -1,5 +1,5 @@
 import {EditorState, EditorSelection, StateCommand} from "@codemirror/state"
-import {markdownLanguage, deleteMarkupBackward, insertNewlineContinueMarkup} from "@codemirror/lang-markdown"
+import {markdown, deleteMarkupBackward, insertNewlineContinueMarkup} from "@codemirror/lang-markdown"
 import ist from "ist"
 
 function mkState(doc: string) {
@@ -13,7 +13,7 @@ function mkState(doc: string) {
   return EditorState.create({
     doc,
     selection: cursors.length ? EditorSelection.create(cursors) : undefined,
-    extensions: [markdownLanguage, EditorState.allowMultipleSelections.of(true)]
+    extensions: [markdown().language, EditorState.allowMultipleSelections.of(true)]
   })
 }
 
@@ -35,10 +35,10 @@ describe("insertNewlineContinueMarkup", () => {
   function test(from: string, to: string) { ist(stateStr(cmd(mkState(from), insertNewlineContinueMarkup)), to) }
 
   it("doesn't continue anything at the top level", () =>
-    test("one|", "one\n|"))
+    test("one|", "one|"))
 
   it("doesn't do anything in non-Markdown content", () =>
-    test("<div>|", "<div>|"))
+    test("- <div>|", "- <div>|"))
 
   it("can continue blockquotes", () =>
     test("> one|", "> one\n> |"))
@@ -90,7 +90,7 @@ describe("insertNewlineContinueMarkup", () => {
     test(" - one\n - |two", " - one\n\n - |two"))
 
   it("deletes the first list marker", () =>
-    test(" - |", "\n|"))
+    test(" - |", "|"))
 
   it("will keep the current ordered list number when moving a marker", () =>
     test(" 1. one\n 2. |", " 1. one\n\n 2. |"))
@@ -104,14 +104,20 @@ describe("insertNewlineContinueMarkup", () => {
   it("stops renumbering on discontinuities", () =>
     test("1. one|\n2. two\n3. three\n1. four", "1. one\n2. |\n3. two\n4. three\n1. four"))
 
-  it("doesn't add markup when the cursor is before the markup depth", () =>
-    test("- a\n|bc", "- a\n\n|bc"))
+  it("doesn't fire when the cursor is before the markup depth", () =>
+    test("- a\n|bc", "- a\n|bc"))
 
   it("continues list items", () =>
     test("- a\n  b|", "- a\n  b\n  |"))
 
   it("continues dedented list items", () =>
     test("- hello\nhello|", "- hello\nhello\n|"))
+
+  it("can lift out of one list level", () =>
+    test("1. a\n\n   1. b\n\n   2. |", "1. a\n\n   1. b\n\n2. |"))
+
+  it("can lift out of one list level and renumber", () =>
+    test("1. a\n\n   1. b\n\n   2. |\n\n2. d", "1. a\n\n   1. b\n\n2. |\n\n3. d"))
 })
 
 describe("deleteMarkupBackward", () => {
@@ -134,6 +140,15 @@ describe("deleteMarkupBackward", () => {
 
   it("clears list markers", () =>
      test(" - one\n - |", " - one\n   |"))
+
+  it("removes extra indentation", () =>
+    test("> - one\n> -    |", "> - one\n> - |"))
+
+  it("clears triple-space indentation", () =>
+    test(" - one\n   |", " - one\n|"))
+
+  it("clears one level of indentation", () =>
+    test("- one\n    - two\n      |", "- one\n    - two\n  |"))
 
   it("deletes the first list marker immediately", () =>
     test(" - |", "|"))
