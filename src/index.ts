@@ -1,8 +1,9 @@
 import {Prec} from "@codemirror/state"
 import {KeyBinding, keymap} from "@codemirror/view"
 import {Language, LanguageSupport, LanguageDescription} from "@codemirror/language"
-import {commonmarkLanguage, markdownLanguage, mkLang, getCodeParser, htmlNoMatch} from "./markdown"
 import {MarkdownExtension, MarkdownParser, parseCode} from "@lezer/markdown"
+import {html} from "@codemirror/lang-html"
+import {commonmarkLanguage, markdownLanguage, mkLang, getCodeParser} from "./markdown"
 import {insertNewlineContinueMarkup, deleteMarkupBackward} from "./commands"
 export {commonmarkLanguage, markdownLanguage, insertNewlineContinueMarkup, deleteMarkupBackward}
 
@@ -15,11 +16,13 @@ export const markdownKeymap: readonly KeyBinding[] = [
   {key: "Backspace", run: deleteMarkupBackward}
 ]
 
+const htmlNoMatch = html({matchClosingTags: false})
+
 /// Markdown language support.
 export function markdown(config: {
   /// When given, this language will be used by default to parse code
   /// blocks.
-  defaultCodeLanguage?: Language,
+  defaultCodeLanguage?: Language | LanguageSupport,
   /// A collection of language descriptions to search through for a
   /// matching language (with
   /// [`LanguageDescription.matchLanguageName`](#language.LanguageDescription^matchLanguageName))
@@ -37,10 +40,17 @@ export function markdown(config: {
   base?: Language
 } = {}) {
   let {codeLanguages, defaultCodeLanguage, addKeymap = true, base: {parser} = commonmarkLanguage} = config
-  let extensions = config.extensions ? [config.extensions] : []
   if (!(parser instanceof MarkdownParser)) throw new RangeError("Base parser provided to `markdown` should be a Markdown parser")
-  let codeParser = codeLanguages || defaultCodeLanguage ? getCodeParser(codeLanguages || [], defaultCodeLanguage) : undefined
-  extensions.push(parseCode({codeParser, htmlParser: htmlNoMatch}))
-  return new LanguageSupport(mkLang(parser.configure(extensions)),
-                             addKeymap ? Prec.extend(keymap.of(markdownKeymap)) : [])
+  let extensions = config.extensions ? [config.extensions] : []
+  let support = [htmlNoMatch.support], defaultCode
+  if (defaultCodeLanguage instanceof LanguageSupport) {
+    support.push(defaultCodeLanguage.support)
+    defaultCode = defaultCodeLanguage.language
+  } else if (defaultCodeLanguage) {
+    defaultCode = defaultCodeLanguage
+  }
+  let codeParser = codeLanguages || defaultCode ? getCodeParser(codeLanguages || [], defaultCode) : undefined
+  extensions.push(parseCode({codeParser, htmlParser: htmlNoMatch.language.parser}))
+  if (addKeymap) support.push(Prec.extend(keymap.of(markdownKeymap)))
+  return new LanguageSupport(mkLang(parser.configure(extensions)), support)
 }
