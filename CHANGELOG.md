@@ -1,3 +1,9 @@
+## 0.19.1 (2021-08-11)
+
+### Bug fixes
+
+Fix incorrect versions for @lezer dependencies.
+
 ## 0.19.0 (2021-08-11)
 
 ### Breaking changes
