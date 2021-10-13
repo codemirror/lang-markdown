@@ -25,6 +25,8 @@ to communication around the project.
 
 @markdownLanguage
 
+@commonmarkLanguage
+
 @insertNewlineContinueMarkup
 
 @deleteMarkupBackward

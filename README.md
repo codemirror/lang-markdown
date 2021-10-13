@@ -20,6 +20,7 @@ conduct](http://contributor-covenant.org/version/1/1/0/) that applies
 to communication around the project.
 
 ## API Reference
+
 <dl>
 <dt id="user-content-markdown">
   <code><strong><a href="#user-content-markdown">markdown</a></strong>(<a id="user-content-markdown^config" href="#user-content-markdown^config">config</a>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> = {}) → <a href="https://codemirror.net/6/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
@@ -29,7 +30,7 @@ to communication around the project.
   <code><strong><a href="#user-content-markdown^config">config</a></strong></code></dt>
 
 <dd><dl><dt id="user-content-markdown^config.defaultcodelanguage">
-  <code><strong><a href="#user-content-markdown^config.defaultcodelanguage">defaultCodeLanguage</a></strong>&#8288;?: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
+  <code><strong><a href="#user-content-markdown^config.defaultcodelanguage">defaultCodeLanguage</a></strong>&#8288;?: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a> | <a href="https://codemirror.net/6/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
 
 <dd><p>When given, this language will be used by default to parse code
 blocks.</p>
@@ -45,11 +46,28 @@ when a fenced code block has an info string.</p>
 
 <dd><p>Set this to false to disable installation of the Markdown
 <a href="#user-content-markdownkeymap">keymap</a>.</p>
+</dd><dt id="user-content-markdown^config.extensions">
+  <code><strong><a href="#user-content-markdown^config.extensions">extensions</a></strong>&#8288;?: <a href="https://lezer.codemirror.net/docs/ref/#lezer.MarkdownExtension">MarkdownExtension</a></code></dt>
+
+<dd><p>Markdown parser
+<a href="https://github.com/lezer-parser/markdown#user-content-markdownextension">extensions</a>
+to add to the parser.</p>
+</dd><dt id="user-content-markdown^config.base">
+  <code><strong><a href="#user-content-markdown^config.base">base</a></strong>&#8288;?: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
+
+<dd><p>The base language to use. Defaults to
+<a href="#user-content-commonmarklanguage"><code>commonmarkLanguage</code></a>.</p>
 </dd></dl></dd></dl></dd>
 <dt id="user-content-markdownlanguage">
   <code><strong><a href="#user-content-markdownlanguage">markdownLanguage</a></strong>: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
 
-<dd><p>Language support for Markdown/CommonMark.</p>
+<dd><p>Language support for <a href="https://github.github.com/gfm/">GFM</a> plus
+subscript, superscript, and emoji syntax.</p>
+</dd>
+<dt id="user-content-commonmarklanguage">
+  <code><strong><a href="#user-content-commonmarklanguage">commonmarkLanguage</a></strong>: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
+
+<dd><p>Language support for strict CommonMark.</p>
 </dd>
 <dt id="user-content-insertnewlinecontinuemarkup">
   <code><strong><a href="#user-content-insertnewlinecontinuemarkup">insertNewlineContinueMarkup</a></strong>: <a href="https://codemirror.net/6/docs/ref#state.StateCommand">StateCommand</a></code></dt>
