@@ -1,3 +1,9 @@
+## 0.19.2 (2021-10-20)
+
+### Bug fixes
+
+Fix a bug where the monospace highlighting tag wasn't correctly applied to code block content.
+
 ## 0.19.1 (2021-08-11)
 
 ### Bug fixes
