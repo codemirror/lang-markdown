@@ -51,6 +51,6 @@ export function markdown(config: {
   }
   let codeParser = codeLanguages || defaultCode ? getCodeParser(codeLanguages || [], defaultCode) : undefined
   extensions.push(parseCode({codeParser, htmlParser: htmlNoMatch.language.parser}))
-  if (addKeymap) support.push(Prec.extend(keymap.of(markdownKeymap)))
+  if (addKeymap) support.push(Prec.high(keymap.of(markdownKeymap)))
   return new LanguageSupport(mkLang(parser.configure(extensions)), support)
 }
