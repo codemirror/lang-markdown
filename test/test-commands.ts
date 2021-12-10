@@ -86,9 +86,6 @@ describe("insertNewlineContinueMarkup", () => {
     test(" - one\n\n - |", " - one\n\n|")
   })
 
-  it("can drop list markup even with text after it", () =>
-    test(" - one\n - |two", " - one\n\n - |two"))
-
   it("deletes the first list marker", () =>
     test(" - |", "|"))
 
@@ -118,6 +115,11 @@ describe("insertNewlineContinueMarkup", () => {
 
   it("can lift out of one list level and renumber", () =>
     test("1. a\n\n   1. b\n\n   2. |\n\n2. d", "1. a\n\n   1. b\n\n2. |\n\n3. d"))
+
+  it("doesn't treat lines with content after the cursor as empty", () => {
+    test("1. |x\n2. y", "1.\n2. |x\n3. y")
+    test("1. x\n2. |y", "1. x\n2.\n3. |y")
+  })
 })
 
 describe("deleteMarkupBackward", () => {

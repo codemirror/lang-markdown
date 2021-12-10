@@ -102,7 +102,7 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
     if (inner.to - inner.spaceAfter.length > pos - line.from) return dont = {range}
 
     // Empty line in list
-    if (inner.item && pos >= (inner.to - inner.spaceAfter.length) && !/\S/.test(line.text.slice(inner.to, pos - line.from))) {
+    if (inner.item && pos >= (inner.to - inner.spaceAfter.length) && !/\S/.test(line.text.slice(inner.to))) {
       // First list item or blank line before: delete a level of markup
       if (inner.node.firstChild!.to >= pos ||
           line.from > 0 && !/[^\s>]/.test(doc.lineAt(line.from - 1).text)) {
