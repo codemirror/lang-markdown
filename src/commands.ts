@@ -187,7 +187,7 @@ export const deleteMarkupBackward: StateCommand = ({state, dispatch}) => {
       let context = getContext(contextNodeForDelete(tree, pos), line.text, doc)
       if (context.length) {
         let inner = context[context.length - 1]
-        let spaceEnd = inner.to - inner.spaceAfter.length + (inner.node.name == "OrderedList" ? 0 : 1)
+        let spaceEnd = inner.to - inner.spaceAfter.length + (inner.spaceAfter ? 1 : 0)
         // Delete extra trailing space after markup
         if (pos - line.from > spaceEnd && !/\S/.test(line.text.slice(spaceEnd, pos - line.from)))
           return {range: EditorSelection.cursor(line.from + spaceEnd),

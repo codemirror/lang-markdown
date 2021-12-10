@@ -155,6 +155,9 @@ describe("deleteMarkupBackward", () => {
   it("deletes the first list marker immediately", () =>
     test(" - |", "|"))
 
+  it("clears number markers in one go", () =>
+    test("1. one\n2. |", "1. one\n   |"))
+
   it("deletes nested list markers", () =>
     test(" > - |", " > |"))
 
