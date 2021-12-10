@@ -1,3 +1,11 @@
+## 0.19.3 (2021-12-10)
+
+### Bug fixes
+
+`insertNewlineContinueMarkup` will no longer exit lists when there is content after the cursor.
+
+Fix an issue in `deleteMarkupBackward` where it only deleted a single space when after a number marker.
+
 ## 0.19.2 (2021-10-20)
 
 ### Bug fixes
