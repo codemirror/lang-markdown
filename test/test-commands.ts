@@ -98,6 +98,9 @@ describe("insertNewlineContinueMarkup", () => {
   it("renumbers following ordered list items", () =>
     test("1. one|\n2. two", "1. one\n2. |\n3. two"))
 
+  it("renumbers after removed markers", () =>
+    test("1. one\n\n2. |\n\n3. three", "1. one\n\n|\n\n2. three"))
+
   it("stops renumbering on discontinuities", () =>
     test("1. one|\n2. two\n3. three\n1. four", "1. one\n2. |\n3. two\n4. three\n1. four"))
 

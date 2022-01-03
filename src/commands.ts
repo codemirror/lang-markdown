@@ -64,14 +64,14 @@ function itemNumber(item: SyntaxNode, doc: Text) {
   return /^(\s*)(\d+)(?=[.)])/.exec(doc.sliceString(item.from, item.from + 10))!
 }
 
-function renumberList(after: SyntaxNode, doc: Text, changes: ChangeSpec[]) {
+function renumberList(after: SyntaxNode, doc: Text, changes: ChangeSpec[], offset = 0) {
   for (let prev = -1, node = after;;) {
     if (node.name == "ListItem") {
       let m = itemNumber(node, doc)
       let number = +m[2]
       if (prev >= 0) {
         if (number != prev + 1) return
-        changes.push({from: node.from + m[1].length, to: node.from + m[0].length, insert: String(prev + 2)})
+        changes.push({from: node.from + m[1].length, to: node.from + m[0].length, insert: String(prev + 2 + offset)})
       }
       prev = number
     }
@@ -115,9 +115,8 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
           delTo = line.from + (next ? next.to : 0)
         }
         let changes: ChangeSpec[] = [{from: delTo, to: pos, insert}]
-        if (inner.node.name == "OrderedList") renumberList(inner.item!, doc, changes)
+        if (inner.node.name == "OrderedList") renumberList(inner.item!, doc, changes, -2)
         if (next && next.node.name == "OrderedList") renumberList(next.item!, doc, changes)
-        // FIXME renumber
         return {range: EditorSelection.cursor(delTo + insert.length), changes}
       } else { // Move this line down
         let insert = ""
