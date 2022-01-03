@@ -1,3 +1,9 @@
+## 0.19.4 (2022-01-03)
+
+### Bug fixes
+
+Fix a bug where list items after a removed item were incorrectly renumbered.
+
 ## 0.19.3 (2021-12-10)
 
 ### Bug fixes
