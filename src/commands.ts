@@ -101,8 +101,9 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
     let inner = context[context.length - 1]
     if (inner.to - inner.spaceAfter.length > pos - line.from) return dont = {range}
 
+    let emptyLine = pos >= (inner.to - inner.spaceAfter.length) && !/\S/.test(line.text.slice(inner.to))
     // Empty line in list
-    if (inner.item && pos >= (inner.to - inner.spaceAfter.length) && !/\S/.test(line.text.slice(inner.to))) {
+    if (inner.item && emptyLine) {
       // First list item or blank line before: delete a level of markup
       if (inner.node.firstChild!.to >= pos ||
           line.from > 0 && !/[^\s>]/.test(doc.lineAt(line.from - 1).text)) {
@@ -123,6 +124,16 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
         for (let i = 0, e = context.length - 2; i <= e; i++) insert += context[i].blank(i < e)
         insert += state.lineBreak
         return {range: EditorSelection.cursor(pos + insert.length), changes: {from: line.from, insert}}
+      }
+    }
+
+    if (inner.node.name == "Blockquote" && emptyLine && line.from) {
+      let prevLine = doc.lineAt(line.from - 1), quoted = />\s*$/.exec(prevLine.text)
+      // Two aligned empty quoted lines in a row
+      if (quoted && quoted.index == inner.from) {
+        let changes = state.changes([{from: prevLine.from + quoted.index, to: prevLine.to},
+                                     {from: line.from + inner.from, to: line.to}])
+        return {range: range.map(changes), changes}
       }
     }
 

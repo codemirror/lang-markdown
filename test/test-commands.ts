@@ -43,6 +43,12 @@ describe("insertNewlineContinueMarkup", () => {
   it("can continue blockquotes", () =>
     test("> one|", "> one\n> |"))
 
+  it("will end blockquotes after two empty lines", () =>
+    test("> one\n>\n> |", "> one\n\n|"))
+
+  it("will end nested blockquotes after two empty lines", () =>
+    test("> > one\n> >\n> > |", "> > one\n> \n> |"))
+
   it("can continue nested blockquotes", () =>
     test("> > one|", "> > one\n> > |"))
 
