@@ -1,3 +1,9 @@
+## 0.19.5 (2022-01-28)
+
+### Bug fixes
+
+Make `insertNewlineContinueMarkup` exit blockquotes after two blank lines.
+
 ## 0.19.4 (2022-01-03)
 
 ### Bug fixes
