@@ -1,6 +1,6 @@
 {
   "name": "@codemirror/lang-markdown",
-  "version": "0.19.5",
+  "version": "0.19.6",
   "description": "Markdown language support for the CodeMirror code editor",
   "scripts": {
     "test": "cm-runtests",

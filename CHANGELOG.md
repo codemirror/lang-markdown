@@ -1,3 +1,9 @@
+## 0.19.6 (2022-02-04)
+
+### Bug fixes
+
+Fix an issue where `deleteMarkupBackward` could get confused when there was only whitespace between the cursor and the start of the line.
+
 ## 0.19.5 (2022-01-28)
 
 ### Bug fixes
