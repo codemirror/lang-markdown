@@ -172,4 +172,7 @@ describe("deleteMarkupBackward", () => {
 
   it("can delete for multiple cursors", () =>
     test("> |\n> |\n> |", "|\n|\n|"))
+
+  it("does noting in a continued list item", () =>
+    test("- Foo\n-\n  |Welcome", "- Foo\n-\n  |Welcome"))
 })

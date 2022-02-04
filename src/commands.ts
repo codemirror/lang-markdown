@@ -40,17 +40,17 @@ function getContext(node: SyntaxNode, line: string, doc: Text) {
   let context = [], pos = 0
   for (let i = nodes.length - 1; i >= 0; i--) {
     let node = nodes[i], match, start = pos
-    if (node.name == "Blockquote" && (match = /^\s*>( ?)/.exec(line.slice(pos)))) {
+    if (node.name == "Blockquote" && (match = /^[ \t]*>( ?)/.exec(line.slice(pos)))) {
       pos += match[0].length
       context.push(new Context(node, start, pos, "", match[1], ">", null))
     } else if (node.name == "ListItem" && node.parent!.name == "OrderedList" &&
-               (match = /^(\s*)\d+([.)])(\s*)/.exec(nodeStart(node, doc)))) {
+               (match = /^([ \t]*)\d+([.)])([ \t]*)/.exec(nodeStart(node, doc)))) {
       let after = match[3], len = match[0].length
       if (after.length >= 4) { after = after.slice(0, after.length - 4); len -= 4 }
       pos += len
       context.push(new Context(node.parent!, start, pos, match[1], after, match[2], node))
     } else if (node.name == "ListItem" && node.parent!.name == "BulletList" &&
-               (match = /^(\s*)([-+*])(\s+)/.exec(nodeStart(node, doc)))) {
+               (match = /^([ \t]*)([-+*])([ \t]+)/.exec(nodeStart(node, doc)))) {
       let after = match[3], len = match[0].length
       if (after.length > 4) { after = after.slice(0, after.length - 4); len -= 4 }
       pos += len
