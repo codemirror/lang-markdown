@@ -50,6 +50,12 @@ function getContext(node: SyntaxNode, line: string, doc: Text) {
       pos += len
       context.push(new Context(node.parent!, start, pos, match[1], after, match[2], node))
     } else if (node.name == "ListItem" && node.parent!.name == "BulletList" &&
+               (match = /^([ \t]*)([-+*][ \t]+\[[ xX]\])([ \t]+)/.exec(nodeStart(node, doc)))) {
+      let after = match[3], len = match[0].length
+      if (after.length > 8) { after = after.slice(0, after.length - 8); len -= 8 }
+      pos += len
+      context.push(new Context(node.parent!, start, pos, match[1], after, match[2], node))
+    } else if (node.name == "ListItem" && node.parent!.name == "BulletList" &&
                (match = /^([ \t]*)([-+*])([ \t]+)/.exec(nodeStart(node, doc)))) {
       let after = match[3], len = match[0].length
       if (after.length > 4) { after = after.slice(0, after.length - 4); len -= 4 }
