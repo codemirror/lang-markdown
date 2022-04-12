@@ -53,8 +53,10 @@ function getContext(node: SyntaxNode, line: string, doc: Text) {
                (match = /^([ \t]*)([-+*])([ \t]{1,4}\[[ xX]\])?([ \t]+)/.exec(nodeStart(node, doc)))) {
       let after = match[4], len = match[0].length
       if (after.length > 4) { after = after.slice(0, after.length - 4); len -= 4 }
+      let type = match[2]
+      if (match[3]) type += match[3].replace(/[xX]/, ' ')
       pos += len
-      context.push(new Context(node.parent!, start, pos, match[1], after, match[2] + (match[3] || ''), node))
+      context.push(new Context(node.parent!, start, pos, match[1], after, type, node))
     }
   }
   return context
