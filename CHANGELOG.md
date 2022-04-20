@@ -1,3 +1,9 @@
+## 0.20.0 (2022-04-20)
+
+### New features
+
+`insertNewlineContinueMarkup` can now continue task lists. Move highlighting information into @lezer/markdown
+
 ## 0.19.6 (2022-02-04)
 
 ### Bug fixes
