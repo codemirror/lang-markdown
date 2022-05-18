@@ -23,11 +23,13 @@ export function markdown(config: {
   /// When given, this language will be used by default to parse code
   /// blocks.
   defaultCodeLanguage?: Language | LanguageSupport,
-  /// A collection of language descriptions to search through for a
-  /// matching language (with
-  /// [`LanguageDescription.matchLanguageName`](#language.LanguageDescription^matchLanguageName))
-  /// when a fenced code block has an info string.
-  codeLanguages?: readonly LanguageDescription[],
+  /// A source of language support for highlighting fenced code
+  /// blocks. When it is an array, the parser will use
+  /// [`LanguageDescription.matchLanguageName`](#language.LanguageDescription^matchLanguageName)
+  /// with the fenced code info to find a matching language. When it
+  /// is a function, will be called with the info string and may
+  /// return a language or `LanguageDescription` object.
+  codeLanguages?: readonly LanguageDescription[] | ((info: string) => Language | LanguageDescription | null),
   /// Set this to false to disable installation of the Markdown
   /// [keymap](#lang-markdown.markdownKeymap).
   addKeymap?: boolean,
@@ -49,7 +51,7 @@ export function markdown(config: {
   } else if (defaultCodeLanguage) {
     defaultCode = defaultCodeLanguage
   }
-  let codeParser = codeLanguages || defaultCode ? getCodeParser(codeLanguages || [], defaultCode) : undefined
+  let codeParser = codeLanguages || defaultCode ? getCodeParser(codeLanguages, defaultCode) : undefined
   extensions.push(parseCode({codeParser, htmlParser: htmlNoMatch.language.parser}))
   if (addKeymap) support.push(Prec.high(keymap.of(markdownKeymap)))
   return new LanguageSupport(mkLang(parser.configure(extensions)), support)

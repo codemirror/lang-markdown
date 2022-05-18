@@ -32,12 +32,20 @@ const extended = commonmark.configure([GFM, Subscript, Superscript, Emoji])
 /// subscript, superscript, and emoji syntax.
 export const markdownLanguage = mkLang(extended)
 
-export function getCodeParser(languages: readonly LanguageDescription[],
-                              defaultLanguage?: Language) {
+export function getCodeParser(
+  languages: readonly LanguageDescription[] | ((info: string) => Language | LanguageDescription | null) | undefined,
+  defaultLanguage?: Language
+) {
   return (info: string) => {
-    let found = info && LanguageDescription.matchLanguageName(languages, info, true)
-    if (!found) return defaultLanguage ? defaultLanguage.parser : null
-    if (found.support) return found.support.language.parser
-    return ParseContext.getSkippingParser(found.load())
+    if (info && languages) {
+      let found = null
+      if (typeof languages == "function") found = languages(info)
+      else found = LanguageDescription.matchLanguageName(languages, info, true)
+      if (found instanceof LanguageDescription)
+        return found.support ? found.support.language.parser : ParseContext.getSkippingParser(found.load())
+      else if (found)
+        return found.parser
+    }
+    return defaultLanguage ? defaultLanguage.parser : null
   }
 }
