@@ -1,3 +1,9 @@
+## 0.20.1 (2022-05-20)
+
+### New features
+
+The `codeLanguages` option to `markdown` may now be a function from an info string to a language.
+
 ## 0.20.0 (2022-04-20)
 
 ### New features
