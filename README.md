@@ -2,14 +2,14 @@
 
 # @codemirror/lang-markdown [![NPM version](https://img.shields.io/npm/v/@codemirror/lang-markdown.svg)](https://www.npmjs.org/package/@codemirror/lang-markdown)
 
-[ [**WEBSITE**](https://codemirror.net/6/) | [**ISSUES**](https://github.com/codemirror/codemirror.next/issues) | [**FORUM**](https://discuss.codemirror.net/c/next/) | [**CHANGELOG**](https://github.com/codemirror/lang-markdown/blob/main/CHANGELOG.md) ]
+[ [**WEBSITE**](https://codemirror.net/) | [**ISSUES**](https://github.com/codemirror/codemirror.next/issues) | [**FORUM**](https://discuss.codemirror.net/c/next/) | [**CHANGELOG**](https://github.com/codemirror/lang-markdown/blob/main/CHANGELOG.md) ]
 
 This package implements Markdown language support for the
-[CodeMirror](https://codemirror.net/6/) code editor.
+[CodeMirror](https://codemirror.net/) code editor.
 
-The [project page](https://codemirror.net/6/) has more information, a
-number of [examples](https://codemirror.net/6/examples/) and the
-[documentation](https://codemirror.net/6/docs/).
+The [project page](https://codemirror.net/) has more information, a
+number of [examples](https://codemirror.net/examples/) and the
+[documentation](https://codemirror.net/docs/).
 
 This code is released under an
 [MIT license](https://github.com/codemirror/lang-markdown/tree/main/LICENSE).
@@ -23,23 +23,23 @@ to communication around the project.
 
 <dl>
 <dt id="user-content-markdown">
-  <code><strong><a href="#user-content-markdown">markdown</a></strong>(<a id="user-content-markdown^config" href="#user-content-markdown^config">config</a>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> = {}) → <a href="https://codemirror.net/6/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
+  <code><strong><a href="#user-content-markdown">markdown</a></strong>(<a id="user-content-markdown^config" href="#user-content-markdown^config">config</a>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> = {}) → <a href="https://codemirror.net/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
 
 <dd><p>Markdown language support.</p>
 <dl><dt id="user-content-markdown^config">
   <code><strong><a href="#user-content-markdown^config">config</a></strong></code></dt>
 
 <dd><dl><dt id="user-content-markdown^config.defaultcodelanguage">
-  <code><strong><a href="#user-content-markdown^config.defaultcodelanguage">defaultCodeLanguage</a></strong>&#8288;?: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a> | <a href="https://codemirror.net/6/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
+  <code><strong><a href="#user-content-markdown^config.defaultcodelanguage">defaultCodeLanguage</a></strong>&#8288;?: <a href="https://codemirror.net/docs/ref#language.Language">Language</a> | <a href="https://codemirror.net/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
 
 <dd><p>When given, this language will be used by default to parse code
 blocks.</p>
 </dd><dt id="user-content-markdown^config.codelanguages">
-  <code><strong><a href="#user-content-markdown^config.codelanguages">codeLanguages</a></strong>&#8288;?: readonly <a href="https://codemirror.net/6/docs/ref#language.LanguageDescription">LanguageDescription</a>[]</code></dt>
+  <code><strong><a href="#user-content-markdown^config.codelanguages">codeLanguages</a></strong>&#8288;?: readonly <a href="https://codemirror.net/docs/ref#language.LanguageDescription">LanguageDescription</a>[]</code></dt>
 
 <dd><p>A collection of language descriptions to search through for a
 matching language (with
-<a href="https://codemirror.net/6/docs/ref/#language.LanguageDescription%5EmatchLanguageName"><code>LanguageDescription.matchLanguageName</code></a>)
+<a href="https://codemirror.net/docs/ref/#language.LanguageDescription%5EmatchLanguageName"><code>LanguageDescription.matchLanguageName</code></a>)
 when a fenced code block has an info string.</p>
 </dd><dt id="user-content-markdown^config.addkeymap">
   <code><strong><a href="#user-content-markdown^config.addkeymap">addKeymap</a></strong>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code></dt>
@@ -53,24 +53,24 @@ when a fenced code block has an info string.</p>
 <a href="https://github.com/lezer-parser/markdown#user-content-markdownextension">extensions</a>
 to add to the parser.</p>
 </dd><dt id="user-content-markdown^config.base">
-  <code><strong><a href="#user-content-markdown^config.base">base</a></strong>&#8288;?: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
+  <code><strong><a href="#user-content-markdown^config.base">base</a></strong>&#8288;?: <a href="https://codemirror.net/docs/ref#language.Language">Language</a></code></dt>
 
 <dd><p>The base language to use. Defaults to
 <a href="#user-content-commonmarklanguage"><code>commonmarkLanguage</code></a>.</p>
 </dd></dl></dd></dl></dd>
 <dt id="user-content-markdownlanguage">
-  <code><strong><a href="#user-content-markdownlanguage">markdownLanguage</a></strong>: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
+  <code><strong><a href="#user-content-markdownlanguage">markdownLanguage</a></strong>: <a href="https://codemirror.net/docs/ref#language.Language">Language</a></code></dt>
 
 <dd><p>Language support for <a href="https://github.github.com/gfm/">GFM</a> plus
 subscript, superscript, and emoji syntax.</p>
 </dd>
 <dt id="user-content-commonmarklanguage">
-  <code><strong><a href="#user-content-commonmarklanguage">commonmarkLanguage</a></strong>: <a href="https://codemirror.net/6/docs/ref#language.Language">Language</a></code></dt>
+  <code><strong><a href="#user-content-commonmarklanguage">commonmarkLanguage</a></strong>: <a href="https://codemirror.net/docs/ref#language.Language">Language</a></code></dt>
 
 <dd><p>Language support for strict CommonMark.</p>
 </dd>
 <dt id="user-content-insertnewlinecontinuemarkup">
-  <code><strong><a href="#user-content-insertnewlinecontinuemarkup">insertNewlineContinueMarkup</a></strong>: <a href="https://codemirror.net/6/docs/ref#state.StateCommand">StateCommand</a></code></dt>
+  <code><strong><a href="#user-content-insertnewlinecontinuemarkup">insertNewlineContinueMarkup</a></strong>: <a href="https://codemirror.net/docs/ref#state.StateCommand">StateCommand</a></code></dt>
 
 <dd><p>This command, when invoked in Markdown context with cursor
 selection(s), will create a new line with the markup for
@@ -82,7 +82,7 @@ not be used as the only binding for Enter (even in a Markdown
 document, HTML and code regions might use a different language).</p>
 </dd>
 <dt id="user-content-deletemarkupbackward">
-  <code><strong><a href="#user-content-deletemarkupbackward">deleteMarkupBackward</a></strong>: <a href="https://codemirror.net/6/docs/ref#state.StateCommand">StateCommand</a></code></dt>
+  <code><strong><a href="#user-content-deletemarkupbackward">deleteMarkupBackward</a></strong>: <a href="https://codemirror.net/docs/ref#state.StateCommand">StateCommand</a></code></dt>
 
 <dd><p>This command will, when invoked in a Markdown context with the
 cursor directly after list or blockquote markup, delete one level
@@ -94,7 +94,7 @@ false, so it is intended to be bound alongside other deletion
 commands, with a higher precedence than the more generic commands.</p>
 </dd>
 <dt id="user-content-markdownkeymap">
-  <code><strong><a href="#user-content-markdownkeymap">markdownKeymap</a></strong>: readonly <a href="https://codemirror.net/6/docs/ref#view.KeyBinding">KeyBinding</a>[]</code></dt>
+  <code><strong><a href="#user-content-markdownkeymap">markdownKeymap</a></strong>: readonly <a href="https://codemirror.net/docs/ref#view.KeyBinding">KeyBinding</a>[]</code></dt>
 
 <dd><p>A small keymap with Markdown-specific bindings. Binds Enter to
 <a href="#user-content-insertnewlinecontinuemarkup"><code>insertNewlineContinueMarkup</code></a>
