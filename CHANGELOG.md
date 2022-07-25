@@ -1,3 +1,9 @@
+## 6.0.1 (2022-07-25)
+
+### Bug fixes
+
+Ignore text after whitespace in code block metadata, when determining which language the block is.
+
 ## 6.0.0 (2022-06-08)
 
 ### Breaking changes
