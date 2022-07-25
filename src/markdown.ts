@@ -39,6 +39,8 @@ export function getCodeParser(
   return (info: string) => {
     if (info && languages) {
       let found = null
+      // Strip anything after whitespace
+      info = /\S*/.exec(info)![0]
       if (typeof languages == "function") found = languages(info)
       else found = LanguageDescription.matchLanguageName(languages, info, true)
       if (found instanceof LanguageDescription)
