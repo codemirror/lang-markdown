@@ -2,14 +2,14 @@
 
 # @codemirror/lang-markdown [![NPM version](https://img.shields.io/npm/v/@codemirror/lang-markdown.svg)](https://www.npmjs.org/package/@codemirror/lang-markdown)
 
-[ [**WEBSITE**](https://codemirror.net/) | [**ISSUES**](https://github.com/codemirror/dev/issues) | [**FORUM**](https://discuss.codemirror.net/c/next/) | [**CHANGELOG**](https://github.com/codemirror/lang-markdown/blob/main/CHANGELOG.md) ]
+[ [**WEBSITE**](https://codemirror.net/6/) | [**ISSUES**](https://github.com/codemirror/dev/issues) | [**FORUM**](https://discuss.codemirror.net/c/next/) | [**CHANGELOG**](https://github.com/codemirror/lang-markdown/blob/main/CHANGELOG.md) ]
 
 This package implements Markdown language support for the
-[CodeMirror](https://codemirror.net/) code editor.
+[CodeMirror](https://codemirror.net/6/) code editor.
 
-The [project page](https://codemirror.net/) has more information, a
-number of [examples](https://codemirror.net/examples/) and the
-[documentation](https://codemirror.net/docs/).
+The [project page](https://codemirror.net/6/) has more information, a
+number of [examples](https://codemirror.net/6/examples/) and the
+[documentation](https://codemirror.net/6/docs/).
 
 This code is released under an
 [MIT license](https://github.com/codemirror/lang-markdown/tree/main/LICENSE).
@@ -35,19 +35,21 @@ to communication around the project.
 <dd><p>When given, this language will be used by default to parse code
 blocks.</p>
 </dd><dt id="user-content-markdown^config.codelanguages">
-  <code><strong><a href="#user-content-markdown^config.codelanguages">codeLanguages</a></strong>&#8288;?: readonly <a href="https://codemirror.net/docs/ref#language.LanguageDescription">LanguageDescription</a>[]</code></dt>
+  <code><strong><a href="#user-content-markdown^config.codelanguages">codeLanguages</a></strong>&#8288;?: readonly <a href="https://codemirror.net/docs/ref#language.LanguageDescription">LanguageDescription</a>[] | fn(<a id="user-content-markdown^config.codelanguages^info" href="#user-content-markdown^config.codelanguages^info">info</a>: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>) → <a href="https://codemirror.net/docs/ref#language.Language">Language</a> | <a href="https://codemirror.net/docs/ref#language.LanguageDescription">LanguageDescription</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></code></dt>
 
-<dd><p>A collection of language descriptions to search through for a
-matching language (with
-<a href="https://codemirror.net/docs/ref/#language.LanguageDescription%5EmatchLanguageName"><code>LanguageDescription.matchLanguageName</code></a>)
-when a fenced code block has an info string.</p>
+<dd><p>A source of language support for highlighting fenced code
+blocks. When it is an array, the parser will use
+<a href="https://codemirror.net/docs/ref/#language.LanguageDescription%5EmatchLanguageName"><code>LanguageDescription.matchLanguageName</code></a>
+with the fenced code info to find a matching language. When it
+is a function, will be called with the info string and may
+return a language or <code>LanguageDescription</code> object.</p>
 </dd><dt id="user-content-markdown^config.addkeymap">
   <code><strong><a href="#user-content-markdown^config.addkeymap">addKeymap</a></strong>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code></dt>
 
 <dd><p>Set this to false to disable installation of the Markdown
 <a href="#user-content-markdownkeymap">keymap</a>.</p>
 </dd><dt id="user-content-markdown^config.extensions">
-  <code><strong><a href="#user-content-markdown^config.extensions">extensions</a></strong>&#8288;?: <a href="https://lezer.codemirror.net/docs/ref/#lezer.MarkdownExtension">MarkdownExtension</a></code></dt>
+  <code><strong><a href="#user-content-markdown^config.extensions">extensions</a></strong>&#8288;?: <a href="https://github.com/lezer-parser/markdown#user-content-markdownextension">MarkdownExtension</a></code></dt>
 
 <dd><p>Markdown parser
 <a href="https://github.com/lezer-parser/markdown#user-content-markdownextension">extensions</a>
