@@ -1,3 +1,9 @@
+## 6.0.2 (2022-10-10)
+
+### Bug fixes
+
+Improve `insertNewlineContinueMarkup`'s behavior in a fenced code block.
+
 ## 6.0.1 (2022-07-25)
 
 ### Bug fixes
