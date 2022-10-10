@@ -129,6 +129,11 @@ describe("insertNewlineContinueMarkup", () => {
     test("1. |x\n2. y", "1.\n2. |x\n3. y")
     test("1. x\n2. |y", "1. x\n2.\n3. |y")
   })
+
+  it("doesn't continue lists in fenced code", () => {
+    test("- ```foo|", "- ```foo\n  |")
+    test("> - ```foo|", "> - ```foo\n>   |")
+  })
 })
 
 describe("deleteMarkupBackward", () => {
