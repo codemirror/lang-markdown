@@ -20,7 +20,7 @@ const commonmark = baseParser.configure({
 })
 
 export function mkLang(parser: MarkdownParser) {
-  return new Language(data, parser)
+  return new Language(data, parser, [], "markdown")
 }
 
 /// Language support for strict CommonMark.
