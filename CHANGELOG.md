@@ -1,3 +1,9 @@
+## 6.0.3 (2022-10-24)
+
+### Bug fixes
+
+Add a `name` value to the Markdown language object.
+
 ## 6.0.2 (2022-10-10)
 
 ### Bug fixes
