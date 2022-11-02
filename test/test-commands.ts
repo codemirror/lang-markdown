@@ -134,6 +134,10 @@ describe("insertNewlineContinueMarkup", () => {
     test("- ```foo|", "- ```foo\n  |")
     test("> - ```foo|", "> - ```foo\n>   |")
   })
+
+  it("continues nested task lists at the right level", () => {
+    test("- [ ] item 1\n  - [ ] item 2.1|", "- [ ] item 1\n  - [ ] item 2.1\n  - [ ] |")
+  })
 })
 
 describe("deleteMarkupBackward", () => {

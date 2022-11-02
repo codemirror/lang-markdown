@@ -3,10 +3,6 @@ import {syntaxTree} from "@codemirror/language"
 import {SyntaxNode, Tree} from "@lezer/common"
 import {markdownLanguage} from "./markdown"
 
-function nodeStart(node: SyntaxNode, doc: Text) {
-  return doc.sliceString(node.from, node.from + 50)
-}
-
 class Context {
   constructor(
     readonly node: SyntaxNode,
@@ -18,11 +14,15 @@ class Context {
     readonly item: SyntaxNode | null
   ) {}
 
-  blank(trailing: boolean = true) {
-    let result = this.spaceBefore
-    if (this.node.name == "Blockquote") result += ">"
-    else for (let i = this.to - this.from - result.length - this.spaceAfter.length; i > 0; i--) result += " "
-    return result + (trailing ? this.spaceAfter : "")
+  blank(maxWidth: number | null, trailing = true) {
+    let result = this.spaceBefore + (this.node.name == "Blockquote" ? ">" : "")
+    if (maxWidth != null) {
+      while (result.length < maxWidth) result += " "
+      return result
+    } else {
+      for (let i = this.to - this.from - result.length - this.spaceAfter.length; i > 0; i--) result += " "
+      return result + (trailing ? this.spaceAfter : "")
+    }
   }
 
   marker(doc: Text, add: number) {
@@ -31,34 +31,32 @@ class Context {
   }
 }
 
-function getContext(node: SyntaxNode, line: string, doc: Text) {
+function getContext(node: SyntaxNode, doc: Text) {
   let nodes = []
   for (let cur: SyntaxNode | null = node; cur && cur.name != "Document"; cur = cur.parent) {
     if (cur.name == "ListItem" || cur.name == "Blockquote" || cur.name == "FencedCode")
       nodes.push(cur)
   }
-  let context = [], pos = 0
+  let context = []
   for (let i = nodes.length - 1; i >= 0; i--) {
-    let node = nodes[i], match, start = pos
+    let node = nodes[i], match
+    let line = doc.lineAt(node.from), startPos = node.from - line.from
     if (node.name == "FencedCode") {
-      context.push(new Context(node, pos, pos, "", "", "", null))
-    } else if (node.name == "Blockquote" && (match = /^[ \t]*>( ?)/.exec(line.slice(pos)))) {
-      pos += match[0].length
-      context.push(new Context(node, start, pos, "", match[1], ">", null))
+      context.push(new Context(node, startPos, startPos, "", "", "", null))
+    } else if (node.name == "Blockquote" && (match = /^[ \t]*>( ?)/.exec(line.text.slice(startPos)))) {
+      context.push(new Context(node, startPos, startPos + match[0].length, "", match[1], ">", null))
     } else if (node.name == "ListItem" && node.parent!.name == "OrderedList" &&
-               (match = /^([ \t]*)\d+([.)])([ \t]*)/.exec(nodeStart(node, doc)))) {
+               (match = /^([ \t]*)\d+([.)])([ \t]*)/.exec(line.text.slice(startPos)))) {
       let after = match[3], len = match[0].length
       if (after.length >= 4) { after = after.slice(0, after.length - 4); len -= 4 }
-      pos += len
-      context.push(new Context(node.parent!, start, pos, match[1], after, match[2], node))
+      context.push(new Context(node.parent!, startPos, startPos + len, match[1], after, match[2], node))
     } else if (node.name == "ListItem" && node.parent!.name == "BulletList" &&
-               (match = /^([ \t]*)([-+*])([ \t]{1,4}\[[ xX]\])?([ \t]+)/.exec(nodeStart(node, doc)))) {
+               (match = /^([ \t]*)([-+*])([ \t]{1,4}\[[ xX]\])?([ \t]+)/.exec(line.text.slice(startPos)))) {
       let after = match[4], len = match[0].length
       if (after.length > 4) { after = after.slice(0, after.length - 4); len -= 4 }
       let type = match[2]
       if (match[3]) type += match[3].replace(/[xX]/, ' ')
-      pos += len
-      context.push(new Context(node.parent!, start, pos, match[1], after, type, node))
+      context.push(new Context(node.parent!, startPos, startPos + len, match[1], after, type, node))
     }
   }
   return context
@@ -99,7 +97,7 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
   let dont = null, changes = state.changeByRange(range => {
     if (!range.empty || !markdownLanguage.isActiveAt(state, range.from)) return dont = {range}
     let pos = range.from, line = doc.lineAt(pos)
-    let context = getContext(tree.resolveInner(pos, -1), line.text, doc)
+    let context = getContext(tree.resolveInner(pos, -1), doc)
     while (context.length && context[context.length - 1].from > pos - line.from) context.pop()
     if (!context.length) return dont = {range}
     let inner = context[context.length - 1]
@@ -125,7 +123,10 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
         return {range: EditorSelection.cursor(delTo + insert.length), changes}
       } else { // Move this line down
         let insert = ""
-        for (let i = 0, e = context.length - 2; i <= e; i++) insert += context[i].blank(i < e)
+        for (let i = 0, pos = 0, e = context.length - 2; i <= e; i++) {
+          insert += context[i].blank(i < e ? context[i + 1].from - pos : null, i < e)
+          pos = context[i].to
+        }
         insert += state.lineBreak
         return {range: EditorSelection.cursor(pos + insert.length), changes: {from: line.from, insert}}
       }
@@ -147,8 +148,11 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
     let continued = inner.item && inner.item.from < line.from
     // If not dedented
     if (!continued || /^[\s\d.)\-+*>]*/.exec(line.text)![0].length >= inner.to) {
-      for (let i = 0, e = context.length - 1; i <= e; i++)
-        insert += i == e && !continued ? context[i].marker(doc, 1) : context[i].blank()
+      for (let i = 0, pos = 0, e = context.length - 1; i <= e; i++) {
+        insert += i == e && !continued ? context[i].marker(doc, 1)
+          : context[i].blank(i < e ? context[i + 1].from - pos : null)
+        pos = context[i].to
+      }
     }
     let from = pos
     while (from > line.from && /\s/.test(line.text.charAt(from - line.from - 1))) from--
@@ -198,7 +202,7 @@ export const deleteMarkupBackward: StateCommand = ({state, dispatch}) => {
     let pos = range.from, {doc} = state
     if (range.empty && markdownLanguage.isActiveAt(state, range.from)) {
       let line = doc.lineAt(pos)
-      let context = getContext(contextNodeForDelete(tree, pos), line.text, doc)
+      let context = getContext(contextNodeForDelete(tree, pos), doc)
       if (context.length) {
         let inner = context[context.length - 1]
         let spaceEnd = inner.to - inner.spaceAfter.length + (inner.spaceAfter ? 1 : 0)
@@ -210,7 +214,7 @@ export const deleteMarkupBackward: StateCommand = ({state, dispatch}) => {
           let start = line.from + inner.from
           // Replace a list item marker with blank space
           if (inner.item && inner.node.from < inner.item.from && /\S/.test(line.text.slice(inner.from, inner.to)))
-            return {range, changes: {from: start, to: line.from + inner.to, insert: inner.blank()}}
+            return {range, changes: {from: start, to: line.from + inner.to, insert: inner.blank(inner.to - inner.from)}}
           // Delete one level of indentation
           if (start < pos)
             return {range: EditorSelection.cursor(start), changes: {from: start, to: pos}}
