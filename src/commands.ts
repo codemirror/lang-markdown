@@ -123,9 +123,8 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
         return {range: EditorSelection.cursor(delTo + insert.length), changes}
       } else { // Move this line down
         let insert = ""
-        for (let i = 0, pos = 0, e = context.length - 2; i <= e; i++) {
-          insert += context[i].blank(i < e ? context[i + 1].from - pos : null, i < e)
-          pos = context[i].to
+        for (let i = 0, e = context.length - 2; i <= e; i++) {
+          insert += context[i].blank(i < e ? context[i + 1].from - insert.length : null, i < e)
         }
         insert += state.lineBreak
         return {range: EditorSelection.cursor(pos + insert.length), changes: {from: line.from, insert}}
@@ -144,18 +143,18 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
 
     let changes: ChangeSpec[] = []
     if (inner.node.name == "OrderedList") renumberList(inner.item!, doc, changes)
-    let insert = state.lineBreak
     let continued = inner.item && inner.item.from < line.from
+    let insert = ""
     // If not dedented
     if (!continued || /^[\s\d.)\-+*>]*/.exec(line.text)![0].length >= inner.to) {
-      for (let i = 0, pos = 0, e = context.length - 1; i <= e; i++) {
+      for (let i = 0, e = context.length - 1; i <= e; i++) {
         insert += i == e && !continued ? context[i].marker(doc, 1)
-          : context[i].blank(i < e ? context[i + 1].from - pos : null)
-        pos = context[i].to
+          : context[i].blank(i < e ? context[i + 1].from - insert.length : null)
       }
     }
     let from = pos
     while (from > line.from && /\s/.test(line.text.charAt(from - line.from - 1))) from--
+    insert = state.lineBreak + insert
     changes.push({from, to: pos, insert})
     return {range: EditorSelection.cursor(from + insert.length), changes}
   })

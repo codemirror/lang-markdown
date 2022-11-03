@@ -136,7 +136,13 @@ describe("insertNewlineContinueMarkup", () => {
   })
 
   it("continues nested task lists at the right level", () => {
-    test("- [ ] item 1\n  - [ ] item 2.1|", "- [ ] item 1\n  - [ ] item 2.1\n  - [ ] |")
+    test("- [ ] item 1\n  - [ ] item 1.1|",
+         "- [ ] item 1\n  - [ ] item 1.1\n  - [ ] |")
+  })
+
+  it("properly indents task lists nested 2 deep", () => {
+    test("- [ ] item 1\n  - [ ] item 1.1\n    - [ ] item 1.1.1|",
+         "- [ ] item 1\n  - [ ] item 1.1\n    - [ ] item 1.1.1\n    - [ ] |")
   })
 })
 
