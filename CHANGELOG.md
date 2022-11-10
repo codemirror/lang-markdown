@@ -1,3 +1,9 @@
+## 6.0.5 (2022-11-10)
+
+### Bug fixes
+
+Make sure task lists are indented correctly even when deeply nested.
+
 ## 6.0.4 (2022-11-02)
 
 ### Bug fixes
