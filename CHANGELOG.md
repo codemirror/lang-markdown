@@ -1,3 +1,9 @@
+## 6.1.0 (2023-02-17)
+
+### New features
+
+Add support for folding entire sections from the header.
+
 ## 6.0.5 (2022-11-10)
 
 ### Bug fixes
