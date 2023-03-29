@@ -190,4 +190,7 @@ describe("deleteMarkupBackward", () => {
 
   it("does noting in a continued list item", () =>
     test("- Foo\n-\n  |Welcome", "- Foo\n-\n  |Welcome"))
+
+  it("doesn't delete normal text in continued list items", () =>
+    test("- \na |b", "- \na |b"))
 })
