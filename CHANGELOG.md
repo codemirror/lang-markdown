@@ -1,3 +1,11 @@
+## 6.1.1 (2023-04-13)
+
+### Bug fixes
+
+Fix the declaration of `comentTokens` language data for Markdown.
+
+Fix a bug in `deleteMarkupBackward` that would cause it to delete pieces of continued paragraphs below list item markers.
+
 ## 6.1.0 (2023-02-17)
 
 ### New features
