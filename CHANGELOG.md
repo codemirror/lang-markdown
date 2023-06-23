@@ -1,3 +1,9 @@
+## 6.2.0 (2023-06-23)
+
+### New features
+
+The markdown package now installs a completion source that completes HTML tags when in Markdown context.
+
 ## 6.1.1 (2023-04-13)
 
 ### Bug fixes
