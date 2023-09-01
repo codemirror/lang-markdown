@@ -1,8 +1,9 @@
-import {EditorState, EditorSelection, StateCommand} from "@codemirror/state"
+import {EditorState, EditorSelection, StateCommand, Extension} from "@codemirror/state"
 import {markdown, deleteMarkupBackward, insertNewlineContinueMarkup} from "@codemirror/lang-markdown"
+import {indentUnit} from "@codemirror/language"
 import ist from "ist"
 
-function mkState(doc: string) {
+function mkState(doc: string, extension?: Extension) {
   let cursors = []
   for (let pos = 0;;) {
     pos = doc.indexOf("|", pos)
@@ -13,7 +14,7 @@ function mkState(doc: string) {
   return EditorState.create({
     doc,
     selection: cursors.length ? EditorSelection.create(cursors) : undefined,
-    extensions: [markdown().language, EditorState.allowMultipleSelections.of(true)]
+    extensions: [markdown().language, EditorState.allowMultipleSelections.of(true), extension || []]
   })
 }
 
@@ -26,13 +27,17 @@ function stateStr(state: EditorState) {
   return doc
 }
 
+const tabs: Extension = [EditorState.tabSize.of(4), indentUnit.of("\t")]
+
 function cmd(state: EditorState, command: StateCommand) {
   command({state, dispatch(tr) { state = tr.state }})
   return state
 }
 
 describe("insertNewlineContinueMarkup", () => {
-  function test(from: string, to: string) { ist(stateStr(cmd(mkState(from), insertNewlineContinueMarkup)), to) }
+  function test(from: string, to: string, ext?: Extension) {
+    ist(stateStr(cmd(mkState(from, ext), insertNewlineContinueMarkup)), to)
+  }
 
   it("doesn't continue anything at the top level", () =>
     test("one|", "one|"))
@@ -144,10 +149,16 @@ describe("insertNewlineContinueMarkup", () => {
     test("- [ ] item 1\n  - [ ] item 1.1\n    - [ ] item 1.1.1|",
          "- [ ] item 1\n  - [ ] item 1.1\n    - [ ] item 1.1.1\n    - [ ] |")
   })
+
+  it("handles tab-indentation", () => {
+    test(" - one\n\t- two|", " - one\n\t- two\n\t- |", tabs)
+  })
 })
 
 describe("deleteMarkupBackward", () => {
-  function test(from: string, to: string) { ist(stateStr(cmd(mkState(from), deleteMarkupBackward)), to) }
+  function test(from: string, to: string, ext?: Extension) {
+    ist(stateStr(cmd(mkState(from, ext), deleteMarkupBackward)), to)
+  }
 
   it("does nothing in regular text", () =>
      test("one|", "one|"))
@@ -193,4 +204,7 @@ describe("deleteMarkupBackward", () => {
 
   it("doesn't delete normal text in continued list items", () =>
     test("- \na |b", "- \na |b"))
+
+  it("normalizes whitespace on deleting", () =>
+    test("  - one\n  - |", "  - one\n\t|", tabs))
 })
