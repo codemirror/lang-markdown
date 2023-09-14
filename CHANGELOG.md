@@ -1,3 +1,9 @@
+## 6.2.1 (2023-09-14)
+
+### Bug fixes
+
+Make `insertNewlineContinueMarkup` and `deleteMarkupBackward` use tabs for indentation when appropriate.
+
 ## 6.2.0 (2023-06-23)
 
 ### New features
