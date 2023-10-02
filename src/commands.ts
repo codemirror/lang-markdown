@@ -138,8 +138,9 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
         for (let i = 0, e = context.length - 2; i <= e; i++) {
           insert += context[i].blank(i < e ? countColumn(line.text, 4, context[i + 1].from) - insert.length : null, i < e)
         }
-        insert = normalizeIndent(insert + state.lineBreak, state)
-        return {range: EditorSelection.cursor(pos + insert.length), changes: {from: line.from, insert}}
+        insert = normalizeIndent(insert, state)
+        return {range: EditorSelection.cursor(pos + insert.length + 1),
+                changes: {from: line.from, insert: insert + state.lineBreak}}
       }
     }
 
@@ -166,9 +167,9 @@ export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => 
     }
     let from = pos
     while (from > line.from && /\s/.test(line.text.charAt(from - line.from - 1))) from--
-    insert = state.lineBreak + normalizeIndent(insert, state)
-    changes.push({from, to: pos, insert})
-    return {range: EditorSelection.cursor(from + insert.length), changes}
+    insert = normalizeIndent(insert, state)
+    changes.push({from, to: pos, insert: state.lineBreak + insert})
+    return {range: EditorSelection.cursor(from + insert.length + 1), changes}
   })
   if (dont) return false
   dispatch(state.update(changes, {scrollIntoView: true, userEvent: "input"}))
