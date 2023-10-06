@@ -1,3 +1,9 @@
+## 6.2.2 (2023-10-06)
+
+### Bug fixes
+
+Fix a bug in `insertNewlineContinueMarkup` that caused it to put the cursor in the wrong place when the editor's line break was more than one character long.
+
 ## 6.2.1 (2023-09-14)
 
 ### Bug fixes
