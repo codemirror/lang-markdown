@@ -1,12 +1,12 @@
-import {Prec, EditorState} from "@codemirror/state"
-import {KeyBinding, keymap} from "@codemirror/view"
-import {Language, LanguageSupport, LanguageDescription, syntaxTree} from "@codemirror/language"
-import {Completion, CompletionContext} from "@codemirror/autocomplete"
-import {MarkdownExtension, MarkdownParser, parseCode} from "@lezer/markdown"
-import {html, htmlCompletionSource} from "@codemirror/lang-html"
-import {commonmarkLanguage, markdownLanguage, mkLang, getCodeParser} from "./markdown"
-import {insertNewlineContinueMarkup, deleteMarkupBackward} from "./commands"
-export {commonmarkLanguage, markdownLanguage, insertNewlineContinueMarkup, deleteMarkupBackward}
+import { Completion, CompletionContext } from "@codemirror/autocomplete"
+import { html, htmlCompletionSource } from "@codemirror/lang-html"
+import { Language, LanguageDescription, LanguageSupport, syntaxTree } from "@codemirror/language"
+import { EditorState, Prec } from "@codemirror/state"
+import { KeyBinding, keymap } from "@codemirror/view"
+import { MarkdownExtension, MarkdownParser, parseCode } from "@lezer/markdown"
+import { deleteMarkupBackward, insertNewlineContinueMarkup } from "./commands"
+import { commonmarkLanguage, getCodeParser, markdownLanguage, mkLang } from "./markdown"
+export { commonmarkLanguage, deleteMarkupBackward, insertNewlineContinueMarkup, markdownLanguage, mkLang }
 
 /// A small keymap with Markdown-specific bindings. Binds Enter to
 /// [`insertNewlineContinueMarkup`](#lang-markdown.insertNewlineContinueMarkup)
