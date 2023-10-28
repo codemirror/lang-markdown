@@ -1,7 +1,7 @@
-import {StateCommand, Text, EditorState, EditorSelection, ChangeSpec, countColumn} from "@codemirror/state"
-import {syntaxTree, indentUnit} from "@codemirror/language"
-import {SyntaxNode, Tree} from "@lezer/common"
-import {markdownLanguage} from "./markdown"
+import { indentUnit, syntaxTree } from "@codemirror/language"
+import { ChangeSpec, EditorSelection, EditorState, SelectionRange, StateCommand, Text, countColumn } from "@codemirror/state"
+import { SyntaxNode, Tree } from "@lezer/common"
+import { markdownLanguage } from "./markdown"
 
 class Context {
   constructor(
@@ -32,12 +32,12 @@ class Context {
 }
 
 function getContext(node: SyntaxNode, doc: Text) {
-  let nodes = []
+  let nodes: SyntaxNode[] = []
   for (let cur: SyntaxNode | null = node; cur && cur.name != "Document"; cur = cur.parent) {
     if (cur.name == "ListItem" || cur.name == "Blockquote" || cur.name == "FencedCode")
       nodes.push(cur)
   }
-  let context = []
+  let context: Context[] = []
   for (let i = nodes.length - 1; i >= 0; i--) {
     let node = nodes[i], match
     let line = doc.lineAt(node.from), startPos = node.from - line.from
@@ -106,7 +106,7 @@ function normalizeIndent(content: string, state: EditorState) {
 /// document, HTML and code regions might use a different language).
 export const insertNewlineContinueMarkup: StateCommand = ({state, dispatch}) => {
   let tree = syntaxTree(state), {doc} = state
-  let dont = null, changes = state.changeByRange(range => {
+  let dont: { range: SelectionRange; } | null = null, changes = state.changeByRange(range => {
     if (!range.empty || !markdownLanguage.isActiveAt(state, range.from)) return dont = {range}
     let pos = range.from, line = doc.lineAt(pos)
     let context = getContext(tree.resolveInner(pos, -1), doc)
@@ -210,7 +210,7 @@ function contextNodeForDelete(tree: Tree, pos: number) {
 /// commands, with a higher precedence than the more generic commands.
 export const deleteMarkupBackward: StateCommand = ({state, dispatch}) => {
   let tree = syntaxTree(state)
-  let dont = null, changes = state.changeByRange(range => {
+  let dont: { range: SelectionRange; } | null = null, changes = state.changeByRange(range => {
     let pos = range.from, {doc} = state
     if (range.empty && markdownLanguage.isActiveAt(state, range.from)) {
       let line = doc.lineAt(pos)
