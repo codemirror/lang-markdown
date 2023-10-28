@@ -31,11 +31,14 @@
     "@codemirror/language": "^6.3.0",
     "@codemirror/state": "^6.0.0",
     "@codemirror/view": "^6.0.0",
-    "@lezer/markdown": "^1.0.0",
-    "@lezer/common": "^1.0.0"
+    "@lezer/common": "^1.0.0",
+    "@lezer/markdown": "^1.0.0"
   },
   "devDependencies": {
-    "@codemirror/buildhelper": "^1.0.0"
+    "@codemirror/buildhelper": "^1.0.0",
+    "@types/mocha": "^10.0.3",
+    "ist": "^1.1.7",
+    "mocha": "^10.2.0"
   },
   "repository": {
     "type": "git",
