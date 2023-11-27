@@ -1,3 +1,9 @@
+## 6.2.3 (2023-11-27)
+
+### Bug fixes
+
+Support code folding for GFM tables.
+
 ## 6.2.2 (2023-10-06)
 
 ### Bug fixes
