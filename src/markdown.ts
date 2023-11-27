@@ -1,7 +1,15 @@
-import {Language, defineLanguageFacet, languageDataProp, foldNodeProp, indentNodeProp, foldService,
-        syntaxTree, LanguageDescription, ParseContext} from "@codemirror/language"
-import {parser as baseParser, MarkdownParser, GFM, Subscript, Superscript, Emoji} from "@lezer/markdown"
-import {SyntaxNode, NodeType, NodeProp} from "@lezer/common"
+import {
+  Language,
+  LanguageDescription, ParseContext,
+  defineLanguageFacet,
+  foldNodeProp,
+  foldService,
+  indentNodeProp,
+  languageDataProp,
+  syntaxTree
+} from "@codemirror/language"
+import { NodeProp, NodeType, SyntaxNode } from "@lezer/common"
+import { Emoji, GFM, MarkdownParser, Subscript, Superscript, parser as baseParser } from "@lezer/markdown"
 
 const data = defineLanguageFacet({commentTokens: {block: {open: "<!--", close: "-->"}}})
 
@@ -74,7 +82,7 @@ export function getCodeParser(
 ) {
   return (info: string) => {
     if (info && languages) {
-      let found = null
+      let found: Language | LanguageDescription | null = null
       // Strip anything after whitespace
       info = /\S*/.exec(info)![0]
       if (typeof languages == "function") found = languages(info)

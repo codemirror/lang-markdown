@@ -2,9 +2,10 @@ import {EditorState, EditorSelection, StateCommand, Extension} from "@codemirror
 import {markdown, deleteMarkupBackward, insertNewlineContinueMarkup} from "@codemirror/lang-markdown"
 import {indentUnit} from "@codemirror/language"
 import ist from "ist"
+import { SelectionRange } from "@codemirror/state"
 
 function mkState(doc: string, extension?: Extension) {
-  let cursors = []
+  let cursors: SelectionRange[] = []
   for (let pos = 0;;) {
     pos = doc.indexOf("|", pos)
     if (pos < 0) break
