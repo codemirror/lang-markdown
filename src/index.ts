@@ -40,7 +40,7 @@ export function markdown(config: {
   extensions?: MarkdownExtension,
   /// The base language to use. Defaults to
   /// [`commonmarkLanguage`](#lang-markdown.commonmarkLanguage).
-  base?: Language,
+  base?: Pick<Language, 'parser'>,
   /// By default, the extension installs an autocompletion source that
   /// completes HTML tags when a `<` is typed. Set this to false to
   /// disable this.
