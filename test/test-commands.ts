@@ -93,9 +93,17 @@ describe("insertNewlineContinueMarkup", () => {
   it("can move list markup when pressing enter directly after it", () =>
     test(" - one\n - |", " - one\n\n - |"))
 
-  it("can drop list markup after an empty line", () => {
-    test(" - one\n\n - |", " - one\n\n|")
-  })
+  it("will preserve non-tight list after second item", () =>
+    test(" - one\n\n - two|", " - one\n\n - two\n\n - |"))
+
+  it("will preserve tight list after second item", () =>
+    test(" - one\n - two|", " - one\n - two\n - |"))
+
+  it("exits tight list after second item", () =>
+    test(" - one\n - two\n - |", " - one\n - two\n|"))
+
+  it("can drop list markup after an empty line", () =>
+    test(" - one\n\n - |", " - one\n\n|"))
 
   it("deletes the first list marker", () =>
     test(" - |", "|"))
@@ -105,6 +113,9 @@ describe("insertNewlineContinueMarkup", () => {
 
   it("can move list markup inside a blockquote", () =>
     test("> 1. one\n> 2. |", "> 1. one\n>\n> 2. |"))
+
+  it("can preserve list tightness inside a blockquote", () =>
+    test("> 1. one\n>\n> 2. two|", "> 1. one\n>\n> 2. two\n>\n> 3. |"))
 
   it("renumbers following ordered list items", () =>
     test("1. one|\n2. two", "1. one\n2. |\n3. two"))
