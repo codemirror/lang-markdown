@@ -1,3 +1,9 @@
+## 6.2.5 (2024-04-12)
+
+### Bug fixes
+
+Disable folding for list nodes (since it will shadow the folding on the first list item).
+
 ## 6.2.4 (2024-01-16)
 
 ### Bug fixes
