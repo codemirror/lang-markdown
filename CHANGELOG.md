@@ -1,3 +1,9 @@
+## 6.3.0 (2024-09-28)
+
+### New features
+
+The new `htmlTagLanguage` option allows client code to configure which language is used to parse HTML tags in the document.
+
 ## 6.2.5 (2024-04-12)
 
 ### Bug fixes
