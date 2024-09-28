@@ -59,6 +59,19 @@ to add to the parser.</p>
 
 <dd><p>The base language to use. Defaults to
 <a href="#user-content-commonmarklanguage"><code>commonmarkLanguage</code></a>.</p>
+</dd><dt id="user-content-markdown^config.completehtmltags">
+  <code><strong><a href="#user-content-markdown^config.completehtmltags">completeHTMLTags</a></strong>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code></dt>
+
+<dd><p>By default, the extension installs an autocompletion source that
+completes HTML tags when a <code>&lt;</code> is typed. Set this to false to
+disable this.</p>
+</dd><dt id="user-content-markdown^config.htmltaglanguage">
+  <code><strong><a href="#user-content-markdown^config.htmltaglanguage">htmlTagLanguage</a></strong>&#8288;?: <a href="https://codemirror.net/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
+
+<dd><p>By default, HTML tags in the document are handled by the <a href="https://github.com/codemirror/lang-html">HTML
+language</a> package with
+tag matching turned off. You can pass in an alternative language
+configuration here if you want.</p>
 </dd></dl></dd></dl></dd>
 <dt id="user-content-markdownlanguage">
   <code><strong><a href="#user-content-markdownlanguage">markdownLanguage</a></strong>: <a href="https://codemirror.net/docs/ref#language.Language">Language</a></code></dt>
