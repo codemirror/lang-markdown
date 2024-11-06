@@ -1,3 +1,9 @@
+## 6.3.1 (2024-11-06)
+
+### Bug fixes
+
+Fix an issue where `insertNewlineContinueMarkup` didn't work with the cursor directly after an HTML tag.
+
 ## 6.3.0 (2024-09-28)
 
 ### New features
