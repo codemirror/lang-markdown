@@ -43,7 +43,7 @@ describe("insertNewlineContinueMarkup", () => {
     test("one|", "one|"))
 
   it("doesn't do anything in non-Markdown content", () =>
-    test("- <div>|", "- <div>|"))
+    test("- <div|>", "- <div|>"))
 
   it("can continue blockquotes", () =>
     test("> one|", "> one\n> |"))
