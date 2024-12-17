@@ -146,9 +146,9 @@ describe("insertNewlineContinueMarkup", () => {
     test("1. x\n2. |y", "1. x\n2.\n3. |y")
   })
 
-  it("doesn't continue lists in fenced code", () => {
-    test("- ```foo|", "- ```foo\n  |")
-    test("> - ```foo|", "> - ```foo\n>   |")
+  it("doesn't take effect in fenced code", () => {
+    test("- ```foo|", "- ```foo|")
+    test("> - ```foo|", "> - ```foo|")
   })
 
   it("continues nested task lists at the right level", () => {
