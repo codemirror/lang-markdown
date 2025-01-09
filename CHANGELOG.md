@@ -1,3 +1,11 @@
+## 6.3.2 (2025-01-09)
+
+### Bug fixes
+
+Make Markdown-specific commands return false inside fenced code.
+
+Fix an infinite loop caused by `insertNewlineContinueMarkup`.
+
 ## 6.3.1 (2024-11-06)
 
 ### Bug fixes
