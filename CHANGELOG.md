@@ -1,3 +1,9 @@
+## 6.3.3 (2025-06-13)
+
+### Bug fixes
+
+Make `insertNewlineContinueMarkup` take effect even when at the end of a nested range of Markdown content.
+
 ## 6.3.2 (2025-01-09)
 
 ### Bug fixes
