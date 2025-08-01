@@ -1,3 +1,9 @@
+## 6.3.4 (2025-08-01)
+
+### Bug fixes
+
+Make sure header-based indentation is available even when Markdown isn't the editor's top-level language.
+
 ## 6.3.3 (2025-06-13)
 
 ### Bug fixes
