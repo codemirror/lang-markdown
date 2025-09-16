@@ -45,3 +45,5 @@ const view = new EditorView({
 @deleteMarkupBackward
 
 @markdownKeymap
+
+@pasteURLAsLink

@@ -78,6 +78,12 @@ to add to the parser.</p>
 <dd><p>By default, the extension installs an autocompletion source that
 completes HTML tags when a <code>&lt;</code> is typed. Set this to false to
 disable this.</p>
+</dd><dt id="user-content-markdown^config.pasteurlaslink">
+  <code><strong><a href="#user-content-markdown^config.pasteurlaslink">pasteURLAsLink</a></strong>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code></dt>
+
+<dd><p>The returned language contains
+<a href="#user-content-pasteurlaslink"><code>pasteURLAsLink</code></a> as a support
+extension unless you set this to false.</p>
 </dd><dt id="user-content-markdown^config.htmltaglanguage">
   <code><strong><a href="#user-content-markdown^config.htmltaglanguage">htmlTagLanguage</a></strong>&#8288;?: <a href="https://codemirror.net/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
 
@@ -128,5 +134,12 @@ commands, with a higher precedence than the more generic commands.</p>
 <a href="#user-content-insertnewlinecontinuemarkup"><code>insertNewlineContinueMarkup</code></a>
 and Backspace to
 <a href="#user-content-deletemarkupbackward"><code>deleteMarkupBackward</code></a>.</p>
+</dd>
+<dt id="user-content-pasteurlaslink">
+  <code><strong><a href="#user-content-pasteurlaslink">pasteURLAsLink</a></strong>: <a href="https://codemirror.net/docs/ref#state.Extension">Extension</a></code></dt>
+
+<dd><p>An extension that intercepts pastes when the pasted content looks
+like a URL and the selection is non-empty and selects regular
+text, making the selection a link with the pasted URL as target.</p>
 </dd>
 </dl>
