@@ -1,3 +1,9 @@
+## 6.4.0 (2025-10-02)
+
+### New features
+
+The new `pasteURLAsLink` extension allows you to paste URLs over a selection to quickly create a link.
+
 ## 6.3.4 (2025-08-01)
 
 ### Bug fixes
