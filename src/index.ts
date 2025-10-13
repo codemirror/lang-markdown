@@ -5,8 +5,8 @@ import {Completion, CompletionContext} from "@codemirror/autocomplete"
 import {MarkdownExtension, MarkdownParser, parseCode} from "@lezer/markdown"
 import {html, htmlCompletionSource} from "@codemirror/lang-html"
 import {commonmarkLanguage, markdownLanguage, mkLang, getCodeParser, headerIndent} from "./markdown"
-import {insertNewlineContinueMarkup, deleteMarkupBackward} from "./commands"
-export {commonmarkLanguage, markdownLanguage, insertNewlineContinueMarkup, deleteMarkupBackward}
+import {insertNewlineContinueMarkup, insertNewlineContinueMarkupCommand, deleteMarkupBackward} from "./commands"
+export {commonmarkLanguage, markdownLanguage, insertNewlineContinueMarkup, insertNewlineContinueMarkupCommand, deleteMarkupBackward}
 
 /// A small keymap with Markdown-specific bindings. Binds Enter to
 /// [`insertNewlineContinueMarkup`](#lang-markdown.insertNewlineContinueMarkup)

@@ -115,6 +115,23 @@ trailing whitespace and list markers are removed from that line.</p>
 not be used as the only binding for Enter (even in a Markdown
 document, HTML and code regions might use a different language).</p>
 </dd>
+<dt id="user-content-insertnewlinecontinuemarkupcommand">
+  <code><strong><a href="#user-content-insertnewlinecontinuemarkupcommand">insertNewlineContinueMarkupCommand</a></strong>(<a id="user-content-insertnewlinecontinuemarkupcommand^config" href="#user-content-insertnewlinecontinuemarkupcommand^config">config</a>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> = {}) → <a href="https://codemirror.net/docs/ref#state.StateCommand">StateCommand</a></code></dt>
+
+<dd><p>Returns a command like
+<a href="#user-content-insertnewlinecontinuemarkup"><code>insertNewlineContinueMarkup</code></a>,
+allowing further configuration.</p>
+<dl><dt id="user-content-insertnewlinecontinuemarkupcommand^config">
+  <code><strong><a href="#user-content-insertnewlinecontinuemarkupcommand^config">config</a></strong></code></dt>
+
+<dd><dl><dt id="user-content-insertnewlinecontinuemarkupcommand^config.nontightlists">
+  <code><strong><a href="#user-content-insertnewlinecontinuemarkupcommand^config.nontightlists">nonTightLists</a></strong>&#8288;?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code></dt>
+
+<dd><p>By default, when pressing enter in a blank second item in a
+tight (no blank lines between items) list, the command will
+insert a blank line above that item, starting a non-tight list.
+Set this to false to disable this behavior.</p>
+</dd></dl></dd></dl></dd>
 <dt id="user-content-deletemarkupbackward">
   <code><strong><a href="#user-content-deletemarkupbackward">deleteMarkupBackward</a></strong>: <a href="https://codemirror.net/docs/ref#state.StateCommand">StateCommand</a></code></dt>
 
