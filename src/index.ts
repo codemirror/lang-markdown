@@ -44,11 +44,11 @@ export function markdown(config: {
   /// By default, the extension installs an autocompletion source that
   /// completes HTML tags when a `<` is typed. Set this to false to
   /// disable this.
-  completeHTMLTags?: boolean
+  completeHTMLTags?: boolean,
   /// The returned language contains
   /// [`pasteURLAsLink`](#lang-markdown.pasteURLAsLink) as a support
   /// extension unless you set this to false.
-  pasteURLAsLink?: boolean
+  pasteURLAsLink?: boolean,
   /// By default, HTML tags in the document are handled by the [HTML
   /// language](https://github.com/codemirror/lang-html) package with
   /// tag matching turned off. You can pass in an alternative language
