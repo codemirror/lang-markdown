@@ -1,3 +1,9 @@
+## 6.5.0 (2025-10-23)
+
+### New features
+
+Add a variant of `insertNewlineContinueMarkup` that supports configuration options.
+
 ## 6.4.0 (2025-10-02)
 
 ### New features
