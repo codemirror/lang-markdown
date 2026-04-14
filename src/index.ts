@@ -35,7 +35,7 @@ export function markdown(config: {
   /// [keymap](#lang-markdown.markdownKeymap).
   addKeymap?: boolean
   /// Markdown parser
-  /// [extensions](https://github.com/lezer-parser/markdown#user-content-markdownextension)
+  /// [extensions](https://code.haverbeke.berlin/lezer/markdown#user-content-markdownextension)
   /// to add to the parser.
   extensions?: MarkdownExtension
   /// The base language to use. Defaults to

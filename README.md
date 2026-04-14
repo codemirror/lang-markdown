@@ -2,7 +2,7 @@
 
 # @codemirror/lang-markdown [![NPM version](https://img.shields.io/npm/v/@codemirror/lang-markdown.svg)](https://www.npmjs.org/package/@codemirror/lang-markdown)
 
-[ [**WEBSITE**](https://codemirror.net/) | [**ISSUES**](https://github.com/codemirror/dev/issues) | [**FORUM**](https://discuss.codemirror.net/) | [**CHANGELOG**](https://github.com/codemirror/lang-markdown/blob/main/CHANGELOG.md) ]
+[ [**WEBSITE**](https://codemirror.net/) | [**ISSUES**](https://code.haverbeke.berlin/codemirror/dev/issues) | [**FORUM**](https://discuss.codemirror.net/) | [**CHANGELOG**](https://code.haverbeke.berlin/codemirror/lang-markdown/src/branch/main/CHANGELOG.md) ]
 
 This package implements Markdown language support for the
 [CodeMirror](https://codemirror.net/) code editor.
@@ -12,7 +12,7 @@ number of [examples](https://codemirror.net/examples/) and the
 [documentation](https://codemirror.net/docs/).
 
 This code is released under an
-[MIT license](https://github.com/codemirror/lang-markdown/tree/main/LICENSE).
+[MIT license](https://code.haverbeke.berlin/codemirror/lang-markdown/tree/main/LICENSE).
 
 We aim to be an inclusive, welcoming community. To make that explicit,
 we have a [code of
@@ -62,10 +62,10 @@ return a language or <code>LanguageDescription</code> object.</p>
 <dd><p>Set this to false to disable installation of the Markdown
 <a href="#user-content-markdownkeymap">keymap</a>.</p>
 </dd><dt id="user-content-markdown^config.extensions">
-  <code><strong><a href="#user-content-markdown^config.extensions">extensions</a></strong>&#8288;?: <a href="https://github.com/lezer-parser/markdown#user-content-markdownextension">MarkdownExtension</a></code></dt>
+  <code><strong><a href="#user-content-markdown^config.extensions">extensions</a></strong>&#8288;?: <a href="https://code.haverbeke.berlin/lezer/markdown#user-content-markdownextension">MarkdownExtension</a></code></dt>
 
 <dd><p>Markdown parser
-<a href="https://github.com/lezer-parser/markdown#user-content-markdownextension">extensions</a>
+<a href="https://code.haverbeke.berlin/lezer/markdown#user-content-markdownextension">extensions</a>
 to add to the parser.</p>
 </dd><dt id="user-content-markdown^config.base">
   <code><strong><a href="#user-content-markdown^config.base">base</a></strong>&#8288;?: <a href="https://codemirror.net/docs/ref#language.Language">Language</a></code></dt>
@@ -87,7 +87,7 @@ extension unless you set this to false.</p>
 </dd><dt id="user-content-markdown^config.htmltaglanguage">
   <code><strong><a href="#user-content-markdown^config.htmltaglanguage">htmlTagLanguage</a></strong>&#8288;?: <a href="https://codemirror.net/docs/ref#language.LanguageSupport">LanguageSupport</a></code></dt>
 
-<dd><p>By default, HTML tags in the document are handled by the <a href="https://github.com/codemirror/lang-html">HTML
+<dd><p>By default, HTML tags in the document are handled by the <a href="https://code.haverbeke.berlin/codemirror/lang-html">HTML
 language</a> package with
 tag matching turned off. You can pass in an alternative language
 configuration here if you want.</p>
